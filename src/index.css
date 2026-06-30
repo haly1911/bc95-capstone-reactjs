@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@layer utilities {
+  ::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-[rgba(255,255,255,0.03)] rounded-full cursor-pointer;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#F0BB3B] rounded-full cursor-pointer;
+  }
+}
+
+@layer base {
+  body {
+    @apply text-gray-100 font-sans overflow-x-hidden box-border bg-linear-120 from-[#16091F] to-[#2A0617] bg-no-repeat bg-cover;
+  }
+}
+
+@layer components {
+  /* SWIPER CAROUSEL CUSTOM RULES */
+  .hero-movie-swiper {
+    --swiper-navigation-size: 20px;
+    --swiper-navigation-color: #f0bb3b;
+    --swiper-theme-color: #f0bb3b;
+
+    @apply w-full pb-10 relative;
+  }
+
+  /* Định vị lại hai mũi tên sát ra rìa bằng cách tăng độ ưu tiên qua class cha */
+  .hero-movie-swiper .swiper-button-next {
+    @apply right-4 lg:right-8;
+  }
+  .hero-movie-swiper .swiper-button-prev {
+    @apply left-4 lg:left-8;
+  }
+
+  /* Định vị các dấu chấm tròn xuống sát đáy */
+  .hero-movie-swiper .swiper-pagination-bullets {
+    @apply bottom-0;
+  }
+
+  /* Ẩn hai mũi tên điều hướng trên thiết bị di động */
+  @media (max-width: 768px) {
+    .hero-movie-swiper .swiper-button-next,
+    .hero-movie-swiper .swiper-button-prev {
+      @apply hidden!;
+    }
+  }
+  /* ========================================================================== */
+  .wrapper {
+    @apply max-w-7xl mx-auto px-4 sm:px-8 lg:px-16;
+  }
+  .header-btn {
+    @apply px-4 py-2 text-sm rounded-full border text-[#F0BB3B] border-[#F0BB3B] hover:bg-[#F0BB3B] hover:text-black transition cursor-pointer;
+  }
+  .nav-titles {
+    @apply text-sm hover:text-[#F0BB3B] transition;
+  }
+  .modal-btn {
+    @apply px-6 py-2 text-sm font-semibold rounded-full transition cursor-pointer;
+  }
+}

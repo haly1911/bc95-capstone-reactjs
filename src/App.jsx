@@ -1,0 +1,54 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomeLayout from "./layouts/HomeLayout";
+import MovieListPage from "./pages/MovieListPage";
+import MovieDetailPage from "./pages/MovieDetailPage";
+import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      retry: 1,
+    },
+  },
+});
+
+function App() {
+  return (
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomeLayout />}>
+              <Route index element={<MovieListPage />} />
+              <Route path="/movie" element={<MovieListPage />} />
+              <Route path="/movie/:maPhim" element={<MovieDetailPage />} />
+            </Route>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+        <ToastContainer
+          position="top-right" // Hiện thông báo ở góc trên bên phải
+          autoClose={3000} // Tự động đóng sau 3 giây
+          hideProgressBar={false} // Hiện thanh chạy thời gian (thanh progress)
+          newestOnTop={false}
+          closeOnClick={true} // Click vào thông báo để tắt nhanh
+          rtl={false}
+          pauseOnFocusLoss={false} // Không dừng thanh chạy khi tab bị mờ
+          draggable={true} // Cho phép vuốt để tắt trên điện thoại
+          pauseOnHover={true} // Di chuột vào thì dừng thời gian đếm ngược
+          theme="dark" // Chuyển sang theme tối để khớp với background rạp phim
+        />
+      </QueryClientProvider>
+    </Provider>
+  );
+}
+
+export default App;
