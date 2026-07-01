@@ -13,24 +13,24 @@ const Footer = () => {
             Trải nghiệm điện ảnh đẳng cấp với công nghệ trình chiếu hiện đại và dịch vụ cao cấp tại hơn 40 cụm rạp trên toàn quốc.
           </p>
           <div className="flex gap-3 mt-2">
-            <a
-              href="#"
+            <Link
+              to="#"
               className="grid h-9 w-9 place-items-center rounded-full border border-white/20 text-gray-400 transition hover:border-[#F0BB3B] hover:text-[#F0BB3B]"
             >
               <i className="fa-brands fa-facebook-f text-sm"></i>
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="#"
               className="grid h-9 w-9 place-items-center rounded-full border border-white/20 text-gray-400 transition hover:border-[#F0BB3B] hover:text-[#F0BB3B]"
             >
               <i className="fa-brands fa-instagram text-sm"></i>
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="#"
               className="grid h-9 w-9 place-items-center rounded-full border border-white/20 text-gray-400 transition hover:border-[#F0BB3B] hover:text-[#F0BB3B]"
             >
               <i className="fa-brands fa-youtube text-sm"></i>
-            </a>
+            </Link>
           </div>
         </div>
         <div>
@@ -38,22 +38,17 @@ const Footer = () => {
           <ul className="mt-4 space-y-2 text-sm text-gray-400">
             <li>
               <Link to="/movie" className="hover:text-[#F0BB3B] transition">
-                Phim đang chiếu
+                Lịch chiếu
               </Link>
             </li>
             <li>
               <Link to="#" className="hover:text-[#F0BB3B] transition">
-                Phim sắp chiếu
+                Cụm rạp
               </Link>
             </li>
             <li>
-              <Link to="#" className="hover:text-[#F0BB3B] transition">
-                Lịch chiếu rạp
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="hover:text-[#F0BB3B] transition">
-                Khuyến mãi
+              <Link to="/promotion" className="hover:text-[#F0BB3B] transition">
+                Ưu đãi
               </Link>
             </li>
           </ul>

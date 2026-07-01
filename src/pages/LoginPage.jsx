@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { authApi } from "../api/authApi";
 import { login } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const loginSchema = Yup.object().shape({
   taiKhoan: Yup.string().required("Tài khoản không được để trống"),
@@ -77,9 +78,9 @@ const LoginPage = () => {
           alt="background"
         />
         <div className="absolute inset-0 bg-violet-900/30 -z-10" />
-        <a href="" className="font-serif text-5xl tracking-wide block">
+        <Link to="#" className="font-serif text-5xl tracking-wide block">
           Lumière<span className="text-[#F0BB3B]">.</span>
-        </a>
+        </Link>
         <div className="my-auto py-12">
           <h2 className="text-4xl pb-4 font-bold leading-tight">
             Trải nghiệm điện ảnh

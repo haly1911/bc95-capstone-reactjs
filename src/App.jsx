@@ -9,6 +9,7 @@ import { store } from "./store/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PromotionsPage from "./pages/PromotionPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +30,7 @@ function App() {
               <Route index element={<MovieListPage />} />
               <Route path="/movie" element={<MovieListPage />} />
               <Route path="/movie/:maPhim" element={<MovieDetailPage />} />
+              <Route path="/promotion" element={<PromotionsPage />} />
             </Route>
             <Route path="/login" element={<LoginPage />} />
             <Route path="*" element={<NotFoundPage />} />
