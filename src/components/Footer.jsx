@@ -42,7 +42,7 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="#" className="hover:text-[#F0BB3B] transition">
+              <Link to="/cinema" className="hover:text-[#F0BB3B] transition">
                 Cụm rạp
               </Link>
             </li>

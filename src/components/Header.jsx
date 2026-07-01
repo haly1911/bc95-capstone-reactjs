@@ -30,7 +30,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="#" className="nav-titles">
+            <Link to="/cinema" className="nav-titles">
               Cụm rạp
             </Link>
           </li>
@@ -87,7 +87,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="nav-titles block" to="#" onClick={() => setIsMenuOpen(false)}>
+                  <Link className="nav-titles block" to="/cinema" onClick={() => setIsMenuOpen(false)}>
                     Cụm rạp
                   </Link>
                 </li>
