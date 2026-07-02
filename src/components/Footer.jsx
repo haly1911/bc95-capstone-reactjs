@@ -37,7 +37,7 @@ const Footer = () => {
           <h4 className="text-sm font-bold uppercase tracking-wider text-[#F0BB3B]">Khám phá</h4>
           <ul className="mt-4 space-y-2 text-sm text-gray-400">
             <li>
-              <Link to="/movie" className="hover:text-[#F0BB3B] transition">
+              <Link to="/schedule" className="hover:text-[#F0BB3B] transition">
                 Lịch chiếu
               </Link>
             </li>

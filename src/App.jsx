@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PromotionsPage from "./pages/PromotionPage";
 import CinemaPage from "./pages/CinemaPage";
+import SchedulePage from "./pages/SchedulePage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +32,7 @@ function App() {
               <Route index element={<MovieListPage />} />
               <Route path="/movie" element={<MovieListPage />} />
               <Route path="/movie/:maPhim" element={<MovieDetailPage />} />
+              <Route path="/schedule" element={<SchedulePage />} />
               <Route path="/cinema" element={<CinemaPage />} />
               <Route path="/promotion" element={<PromotionsPage />} />
             </Route>
@@ -48,7 +50,7 @@ function App() {
           pauseOnFocusLoss={false} // Không dừng thanh chạy khi tab bị mờ
           draggable={true} // Cho phép vuốt để tắt trên điện thoại
           pauseOnHover={true} // Di chuột vào thì dừng thời gian đếm ngược
-          theme="dark" // Chuyển sang theme tối để khớp với background rạp phim
+          // theme="dark" // Chuyển sang theme tối để khớp với background rạp phim
         />
       </QueryClientProvider>
     </Provider>

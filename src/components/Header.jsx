@@ -25,7 +25,7 @@ const Header = () => {
       <nav className="hidden sm:block">
         <ul className="flex items-center gap-9">
           <li>
-            <Link to="/movie" className="nav-titles">
+            <Link to="/schedule" className="nav-titles">
               Lịch chiếu
             </Link>
           </li>
@@ -82,7 +82,7 @@ const Header = () => {
             <nav>
               <ul className="flex flex-col gap-6 text-sm">
                 <li>
-                  <Link className="nav-titles block" to="/movie" onClick={() => setIsMenuOpen(false)}>
+                  <Link className="nav-titles block" to="/schedule" onClick={() => setIsMenuOpen(false)}>
                     Lịch chiếu
                   </Link>
                 </li>
