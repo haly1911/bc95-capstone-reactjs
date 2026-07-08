@@ -3,36 +3,28 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useMovieDetail } from "../hooks/useMovies";
 import { useScheduleByMovie } from "../hooks/useSchedule";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useNavigateBooking } from "../hooks/useBooking";
 
 const MovieDetailPage = () => {
   const { maPhim } = useParams();
   const navigate = useNavigate();
-  const {
-    data: movie,
-    isLoading: isLoadingMovie,
-    isError: isMovieError,
-  } = useMovieDetail(maPhim);
+  const { data: movie, isLoading: isLoadingMovie, isError: isMovieError } = useMovieDetail(maPhim);
 
-  // Gọi API lấy lịch chiếu thực tế của phim
-  const { data: scheduleData, isLoading: isLoadingSchedule } =
-    useScheduleByMovie(maPhim);
+  const { data: scheduleData, isLoading: isLoadingSchedule } = useScheduleByMovie(maPhim);
 
   const [trailerOpen, setTrailerOpen] = useState(false);
   const [selectedChain, setSelectedChain] = useState("");
 
-  // Tự động chọn hệ thống rạp đầu tiên khi dữ liệu trả về
+  const handleNavigateBooking = useNavigateBooking();
+
   useEffect(() => {
     if (scheduleData && scheduleData.heThongRapChieu?.length > 0) {
       setSelectedChain(scheduleData.heThongRapChieu[0].maHeThongRap);
     }
   }, [scheduleData]);
 
-  // Lấy dữ liệu cụm rạp của hệ thống đang chọn
-  const currentChainData = scheduleData?.heThongRapChieu?.find(
-    (chain) => chain.maHeThongRap === selectedChain,
-  );
+  const currentChainData = scheduleData?.heThongRapChieu?.find((chain) => chain.maHeThongRap === selectedChain);
 
-  // Loading State
   if (isLoadingMovie) {
     return (
       <div className="min-h-screen bg-gray-950 flex items-center justify-center">
@@ -41,18 +33,12 @@ const MovieDetailPage = () => {
     );
   }
 
-  // Error State
   if (isMovieError || !movie || !movie.maPhim) {
     return (
       <div className="min-h-screen bg-gray-950 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-400 text-xl mb-4">
-            Không tìm thấy thông tin phim
-          </p>
-          <Link
-            to="/movie"
-            className="text-[#f0bb3b] hover:underline inline-flex items-center gap-2"
-          >
+          <p className="text-red-400 text-xl mb-4">Không tìm thấy thông tin phim</p>
+          <Link to="/movie" className="text-[#f0bb3b] hover:underline inline-flex items-center gap-2">
             <i className="fa-solid fa-arrow-left"></i> Quay lại danh sách
           </Link>
         </div>
@@ -72,34 +58,11 @@ const MovieDetailPage = () => {
     return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
   };
 
-  const handleBooking = (showtime, complex) => {
-    navigate("/booking", {
-      state: {
-        movieInfo: {
-          tenPhim: movie.tenPhim,
-          hinhAnh: movie.hinhAnh,
-          maPhim: movie.maPhim,
-        },
-        showtimeInfo: {
-          maLichChieu: showtime.maLichChieu,
-          ngayChieuGioChieu: showtime.ngayChieuGioChieu,
-          giaVe: showtime.giaVe,
-          tenCumRap: complex.tenCumRap,
-          tenRap: showtime.tenRap,
-        },
-      },
-    });
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-gray-950 text-white">
       <section className="relative isolate overflow-hidden pt-32">
         <div className="absolute inset-0 -z-10">
-          <img
-            src={movie.hinhAnh}
-            alt={movie.tenPhim}
-            className="h-full w-full object-cover opacity-10 blur-md"
-          />
+          <img src={movie.hinhAnh} alt={movie.tenPhim} className="h-full w-full object-cover opacity-10 blur-md" />
           <div className="absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/90 to-transparent" />
         </div>
         <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6">
@@ -130,20 +93,16 @@ const MovieDetailPage = () => {
               )}
               {movie.dangChieu && (
                 <span className="rounded-full bg-green-500/10 border border-green-500/30 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-green-400 backdrop-blur">
-                  <i className="fa-solid fa-circle-check text-green-500 mr-1"></i>{" "}
-                  Đang chiếu
+                  <i className="fa-solid fa-circle-check text-green-500 mr-1"></i> Đang chiếu
                 </span>
               )}
               {movie.sapChieu && (
                 <span className="rounded-full bg-blue-500/10 border border-blue-500/30 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-blue-400 backdrop-blur">
-                  <i className="fa-solid fa-clock text-blue-500 mr-1"></i> Sắp
-                  chiếu
+                  <i className="fa-solid fa-clock text-blue-500 mr-1"></i> Sắp chiếu
                 </span>
               )}
             </div>
-            <h1 className="text-4xl font-bold leading-tight sm:text-5xl text-white tracking-tight">
-              {movie.tenPhim}
-            </h1>
+            <h1 className="text-4xl font-bold leading-tight sm:text-5xl text-white tracking-tight">{movie.tenPhim}</h1>
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
               <span className="flex items-center gap-1.5 bg-[#2a1b35]/40 px-3 py-1.5 rounded-lg border border-[#442c54]/30">
                 <div className="flex gap-0.5 mr-1">
@@ -154,27 +113,18 @@ const MovieDetailPage = () => {
                     ></i>
                   ))}
                 </div>
-                <strong className="text-[#f0bb3b] font-bold">
-                  {movie.danhGia}
-                </strong>
+                <strong className="text-[#f0bb3b] font-bold">{movie.danhGia}</strong>
                 /10
               </span>
 
               <span className="flex items-center gap-1.5">
                 <i className="fa-solid fa-calendar-days text-[#f0bb3b] mr-1"></i>{" "}
-                {new Date(movie.ngayKhoiChieu)
-                  .toLocaleDateString("vi-VN")
-                  .replace(/-/g, "/")}
-              </span>
-              <span className="rounded border border-[#f0bb3b]/30 px-2 py-0.5 font-mono text-[#f0bb3b] text-xs uppercase">
-                {movie.maNhom}
+                {new Date(movie.ngayKhoiChieu).toLocaleDateString("vi-VN").replace(/-/g, "/")}
               </span>
             </div>
             {movie.moTa && (
               <div className="bg-[#2a1b35]/40 border border-[#442c54]/40 rounded-xl p-5 max-w-3xl backdrop-blur-lg shadow-[0_8px_32px_0_rgba(0,0,0,0.2)]">
-                <p className="text-base leading-relaxed text-gray-300">
-                  {movie.moTa}
-                </p>
+                <p className="text-base leading-relaxed text-gray-300">{movie.moTa}</p>
               </div>
             )}
             <div className="mt-2 flex flex-wrap gap-3">
@@ -202,14 +152,9 @@ const MovieDetailPage = () => {
       >
         <div className="mb-10">
           <h2 className="text-3xl font-bold tracking-tight text-white">
-            Lịch chiếu{" "}
-            <span className="text-[#f0bb3b] drop-shadow-[0_2px_10px_rgba(240,187,59,0.2)]">
-              Phim
-            </span>
+            Lịch chiếu <span className="text-[#f0bb3b] drop-shadow-[0_2px_10px_rgba(240,187,59,0.2)]">Phim</span>
           </h2>
-          <p className="mt-1 text-sm text-gray-400">
-            Chọn hệ thống rạp yêu thích và suất chiếu phù hợp với bạn
-          </p>
+          <p className="mt-1 text-sm text-gray-400">Chọn hệ thống rạp yêu thích và suất chiếu phù hợp với bạn</p>
         </div>
 
         {isLoadingSchedule ? (
@@ -258,9 +203,7 @@ const MovieDetailPage = () => {
                 {currentChainData?.cumRapChieu?.map((complex) => {
                   const sortedLichChieu = complex.lichChieuPhim
                     ? [...complex.lichChieuPhim].sort(
-                        (a, b) =>
-                          new Date(a.ngayChieuGioChieu) -
-                          new Date(b.ngayChieuGioChieu),
+                        (a, b) => new Date(a.ngayChieuGioChieu) - new Date(b.ngayChieuGioChieu),
                       )
                     : [];
                   return (
@@ -275,8 +218,7 @@ const MovieDetailPage = () => {
                             {complex.tenCumRap}
                           </h4>
                           <p className="text-gray-400 text-xs mt-1.5 flex items-center gap-2">
-                            <span className="text-[#f0bb3b]">📍</span>{" "}
-                            {complex.diaChi}
+                            <span className="text-[#f0bb3b]">📍</span> {complex.diaChi}
                           </p>
                         </div>
                         <span className="text-xs bg-purple-950/40 px-2.5 py-1 rounded text-gray-400 border border-[#442c54]/30 whitespace-nowrap">
@@ -286,14 +228,11 @@ const MovieDetailPage = () => {
                       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                         {sortedLichChieu.map((showtime) => {
                           const dateObj = new Date(showtime.ngayChieuGioChieu);
-                          const timeString = dateObj.toLocaleTimeString(
-                            "vi-VN",
-                            {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                              hour12: false,
-                            },
-                          );
+                          const timeString = dateObj.toLocaleTimeString("vi-VN", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          });
                           const dateString = dateObj
                             .toLocaleDateString("vi-VN", {
                               day: "2-digit",
@@ -304,15 +243,14 @@ const MovieDetailPage = () => {
                           return (
                             <button
                               key={showtime.maLichChieu}
-                              onClick={() => handleBooking(showtime, complex)}
+                              onClick={() => handleNavigateBooking(movie, showtime, complex.tenCumRap)}
                               className="bg-black/40 border border-[#442c54]/60 hover:border-[#f0bb3b] hover:bg-[#f0bb3b]/10 hover:text-[#f0bb3b] text-gray-300 rounded-xl py-2 px-3 text-center transition-all duration-200 group/time cursor-pointer flex flex-col items-center justify-center"
                             >
                               <span className="font-bold text-sm tracking-wide group-hover/time:scale-105 transition-transform">
                                 {timeString}
                               </span>
                               <span className="text-[10px] text-gray-500 mt-0.5 group-hover/time:text-[#f0bb3b]/80">
-                                {dateString} - {showtime.giaVe.toLocaleString()}
-                                đ
+                                {dateString} - {showtime.giaVe.toLocaleString()}đ
                               </span>
                             </button>
                           );
@@ -326,9 +264,7 @@ const MovieDetailPage = () => {
           </div>
         ) : (
           <div className="text-center py-12 bg-[#2a1b35]/20 border border-[#442c54]/20 rounded-2xl mt-6">
-            <p className="text-gray-400 text-sm">
-              Hiện tại phim này đang chưa có lịch chiếu trên hệ thống.
-            </p>
+            <p className="text-gray-400 text-sm">Hiện tại phim này đang chưa có lịch chiếu trên hệ thống.</p>
           </div>
         )}
       </section>
@@ -339,10 +275,7 @@ const MovieDetailPage = () => {
           onClick={() => setTrailerOpen(false)}
           className="fixed inset-0 z-50 grid place-items-center bg-black/95 p-4 backdrop-blur-sm"
         >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-4xl"
-          >
+          <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-4xl">
             <div className="aspect-video w-full overflow-hidden rounded-2xl border border-[#f0bb3b]/20 shadow-2xl">
               <iframe
                 src={`${getEmbedUrl(movie.trailer)}?autoplay=1`}

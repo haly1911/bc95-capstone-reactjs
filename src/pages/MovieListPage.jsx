@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useMovieList } from "../hooks/useMovies";
 import LoadingSpinner from "../components/LoadingSpinner";
 import MovieCard from "../components/MovieCard";
@@ -9,12 +9,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useDebounce } from "../hooks/useDebounce";
-import { all } from "axios";
 
 const MovieListPage = () => {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+
+  const movieSectionRef = useRef(null);
 
   const debouncedQuery = useDebounce(query, 500);
 
@@ -34,6 +35,15 @@ const MovieListPage = () => {
     return true;
   });
 
+  const handlePageChange = (newPage) => {
+    if (newPage === currentPage) return;
+    setPage(newPage);
+    movieSectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <div className="flex min-h-screen flex-col pt-20 pb-10">
       {/* HERO BANNER */}
@@ -50,7 +60,7 @@ const MovieListPage = () => {
               .filter((movie) => movie.hot === true)
               .map((movie) => (
                 <SwiperSlide key={movie.maPhim}>
-                  <div className="relative overflow-hidden grid gap-8 lg:grid-cols-3 px-6 py-12 sm:px-16 lg:px-24 items-center min-h-120 lg:min-h-138S">
+                  <div className="relative overflow-hidden grid gap-8 lg:grid-cols-3 px-6 py-12 sm:px-16 lg:px-24 items-center min-h-120 lg:min-h-138">
                     <div
                       className="absolute inset-0 bg-cover bg-center transition-all duration-500 scale-105 opacity-40 blur-[3px] lg:opacity-25 lg:blur-xs"
                       style={{ backgroundImage: `url(${movie.hinhAnh})` }}
@@ -132,7 +142,7 @@ const MovieListPage = () => {
         </div>
 
         {/* MOVIE GRID */}
-        <div className="mt-8">
+        <div ref={movieSectionRef} className="mt-8">
           <h2 className="text-2xl font-bold sm:text-3xl">Danh sách phim</h2>
         </div>
 
@@ -161,7 +171,7 @@ const MovieListPage = () => {
           <div className="mt-10 flex items-center justify-center gap-2">
             {/* Nút Previous */}
             <button
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
               className="grid h-10 w-10 place-items-center rounded-full border transition bg-black/20 disabled:opacity-40 disabled:pointer-events-none enabled:hover:border-[#F0BB3B] enabled:hover:text-[#F0BB3B] enabled:cursor-pointer"
             >
@@ -175,7 +185,7 @@ const MovieListPage = () => {
               return (
                 <button
                   key={n}
-                  onClick={() => setPage(n)}
+                  onClick={() => handlePageChange(n)}
                   className={`grid h-10 min-w-10 place-items-center rounded-full border px-3 text-sm font-bold transition cursor-pointer ${
                     active
                       ? "border-[#F0BB3B] bg-[#F0BB3B] text-black shadow-[0_0_15px_rgba(240,187,59,0.5)]"
@@ -189,7 +199,7 @@ const MovieListPage = () => {
 
             {/* Nút Next */}
             <button
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
               disabled={currentPage === totalPages}
               className="grid h-10 w-10 place-items-center rounded-full border transition bg-black/20 disabled:opacity-40 disabled:pointer-events-none enabled:hover:border-[#F0BB3B] enabled:hover:text-[#F0BB3B] enabled:cursor-pointer"
             >

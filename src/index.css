@@ -19,7 +19,9 @@
 }
 
 @layer components {
-  /* SWIPER CAROUSEL CUSTOM RULES */
+  /* ==========================================================================
+     SWIPER CAROUSEL CUSTOM RULES
+     ========================================================================== */
   .hero-movie-swiper {
     --swiper-navigation-size: 20px;
     --swiper-navigation-color: #f0bb3b;
@@ -58,7 +60,14 @@
   .nav-titles {
     @apply text-sm hover:text-[#F0BB3B] transition;
   }
-  .modal-btn {
-    @apply px-6 py-2 text-sm font-semibold rounded-full transition cursor-pointer;
+
+  .seat-color {
+    @apply inline-block w-3.5 h-3.5 rounded-md mr-2 align-middle;
+  }
+  .ticket-info {
+    @apply flex justify-between text-sm py-2 border-b border-dashed border-white/10;
+  }
+  .booking-info-titles {
+    @apply text-xs uppercase tracking-widest text-[#8a85a8];
   }
 }
