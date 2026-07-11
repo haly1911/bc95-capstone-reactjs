@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { movieApi } from "../api/movieApi";
 
 export const useMovieList = (groupId = "GP01", page = 1, pageSize = 8, movieName = "") => {
@@ -21,6 +21,36 @@ export const useMovieDetail = (movieId) => {
       const response = await movieApi.getMovieDetail(movieId);
       return response.data.content;
     },
-    enabled: movieId !== undefined && movieId !== null && movieId !== "",
+    enabled: !!movieId,
+  });
+};
+
+export const useAddMovie = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (formData) => movieApi.addMovie(formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["movieList"] });
+    },
+  });
+};
+
+export const useUpdateMovie = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (formData) => movieApi.updateMovie(formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["movieList"] });
+    },
+  });
+};
+
+export const useDeleteMovie = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (movieId) => movieApi.deleteMovie(movieId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["movieList"] });
+    },
   });
 };

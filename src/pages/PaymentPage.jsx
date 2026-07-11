@@ -44,7 +44,7 @@ const PaymentPage = () => {
 
   if (!showtimeInfo || selectedSeats.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center gap-4">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <p className="text-gray-400">Không tìm thấy thông tin thanh toán hợp lệ.</p>
         <button
           onClick={() => navigate("/")}

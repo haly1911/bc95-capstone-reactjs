@@ -44,9 +44,9 @@ const Header = () => {
       <div className="flex items-center gap-3">
         {isLoggedIn ? (
           <div className="flex gap-3 items-center">
-            <span className="text-sm text-gray-300">
+            <Link to="/profile" className="text-sm text-gray-300">
               Xin chào, <span className="text-yellow-400 font-medium">{user?.hoTen}</span>
-            </span>
+            </Link>
             <button onClick={handleLogout} className="header-btn hidden sm:block space-x-2">
               Đăng xuất
             </button>

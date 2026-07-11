@@ -16,5 +16,11 @@ export const userApi = {
   },
   updateUser: (userData) => {
     return axiosInstance.post("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", userData);
-  } 
+  },
+  updateUserByAdmin: (userData) => {
+    return axiosInstance.put("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", userData);
+  },
+  deleteUser: (account) => {
+    return axiosInstance.delete(`/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${account}`);
+  },
 };

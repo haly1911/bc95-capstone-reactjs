@@ -14,4 +14,13 @@ export const movieApi = {
   getMovieDetail: (groupId) => {
     return axiosInstance.get(`/QuanLyPhim/LayThongTinPhim?maPhim=${groupId}`);
   },
+  addMovie: (formData) => {
+    return axiosInstance.post("/QuanLyPhim/ThemPhimUploadHinh", formData);
+  },
+  updateMovie: (formData) => {
+    return axiosInstance.post("/QuanLyPhim/CapNhatPhimUpload", formData);
+  },
+  deleteMovie: (movieId) => {
+    return axiosInstance.delete(`/QuanLyPhim/XoaPhim?MaPhim=${movieId}`);
+  },
 };

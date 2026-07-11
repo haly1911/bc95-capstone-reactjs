@@ -192,12 +192,12 @@ const ProfilePage = () => {
 
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/60 backdrop-blur-md"
+          className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/60 backdrop-blur-xs"
           onClick={() => setIsModalOpen(false)}
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-xl bg-[#1d1225]/95 border border-[#442c54] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-x-hidden p-6 text-white max-h-[90vh] overflow-y-auto scrollbar-thin"
+            className="relative w-full max-w-lg bg-linear-120 from-[#16091F] to-[#2A0617] rounded-2xl border border-[#442c54] shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-x-hidden p-6 text-white max-h-[90vh] overflow-y-auto "
           >
             <div className="flex items-center justify-between border-b border-[#442c54]/50 pb-4 mb-5">
               <h3 className="text-xl font-bold tracking-wide">

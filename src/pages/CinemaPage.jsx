@@ -111,7 +111,7 @@ const CinemaPage = () => {
                     {cinemaComplex.danhSachRap.map((screen) => (
                       <span
                         key={screen.maRap}
-                        className="bg-black/30 border border-purple-950/50 text-gray-400 text-xs px-3 py-1.5 rounded-lg hover:border-[#f0bb3b]/30 hover:text-white transition-colors cursor-default"
+                        className="bg-black/30 border border-purple-950/50 text-gray-400 text-xs px-3 py-1.5 rounded-lg hover:border-[#f0bb3b]/30 hover:text-white transition-colors"
                       >
                         {screen.tenRap}
                       </span>

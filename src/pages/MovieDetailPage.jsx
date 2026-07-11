@@ -27,7 +27,7 @@ const MovieDetailPage = () => {
 
   if (isLoadingMovie) {
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <LoadingSpinner />
       </div>
     );
@@ -35,7 +35,7 @@ const MovieDetailPage = () => {
 
   if (isMovieError || !movie || !movie.maPhim) {
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-400 text-xl mb-4">Không tìm thấy thông tin phim</p>
           <Link to="/movie" className="text-[#f0bb3b] hover:underline inline-flex items-center gap-2">
@@ -59,7 +59,7 @@ const MovieDetailPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-950 text-white">
+    <div className="min-h-screen flex flex-col text-white">
       <section className="relative isolate overflow-hidden pt-32">
         <div className="absolute inset-0 -z-10">
           <img src={movie.hinhAnh} alt={movie.tenPhim} className="h-full w-full object-cover opacity-10 blur-md" />
