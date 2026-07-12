@@ -21,6 +21,7 @@ import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import AdminLayout from "./layouts/AdminLayout";
 import UserManagementPage from "./pages/admin/UserManagementPage";
 import MovieManagementPage from "./pages/admin/MovieManagementPage";
+import CreateSchedulePage from "./pages/admin/CreateSchedulePage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,6 +69,7 @@ function App() {
               <Route index element={<UserManagementPage />} />
               <Route path="users-management" element={<UserManagementPage />} />
               <Route path="movies-management" element={<MovieManagementPage />} />
+              <Route path="create-schedule" element={<CreateSchedulePage />} />
             </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

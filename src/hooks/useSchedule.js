@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { scheduleApi } from "../api/scheduleApi";
 
 export const useScheduleByChain = (chainId = "", groupId = "GP01") => {
@@ -20,5 +20,15 @@ export const useScheduleByMovie = (movieId) => {
       return response.data.content;
     },
     enabled: movieId !== undefined && movieId !== null && movieId !== "",
+  });
+};
+
+export const useCreateSchedule = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => scheduleApi.createSchedule(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["scheduleByMovie"] });
+    },
   });
 };

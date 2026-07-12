@@ -68,11 +68,11 @@ const AdminLayout = () => {
             </div>
             <span>Phim</span>
           </NavLink>
-          <NavLink to="/admin/showtimes" className={navLinkClassName} onClick={() => setIsSidebarOpen(false)}>
+          <NavLink to="/admin/create-schedule" className={navLinkClassName} onClick={() => setIsSidebarOpen(false)}>
             <div className="text-[#F0BB3B]">
               <i className="fa-solid fa-calendar-days"></i>
             </div>
-            <span>Lịch chiếu</span>
+            <span>Tạo lịch chiếu</span>
           </NavLink>
         </nav>
 
