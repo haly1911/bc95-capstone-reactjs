@@ -6,8 +6,10 @@ import { useMovieList } from "../../hooks/useMovies";
 import { useCinemaChains, useCinemaComplexesByChain } from "../../hooks/useCinema";
 import { useCreateSchedule } from "../../hooks/useSchedule";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { formatDateTimeForSubmit } from "../../utils/date";
+import MovieInfoCard from "../../components/MovieInfoCard";
 
-const validationSchema = Yup.object({
+const scheduleValidationSchema = Yup.object({
   maPhim: Yup.string().required("Vui lòng chọn phim"),
   maRap: Yup.string().required("Vui lòng chọn cụm rạp"),
   ngayChieuGioChieu: Yup.string().required("Vui lòng chọn ngày giờ chiếu"),
@@ -34,15 +36,11 @@ const CreateSchedulePage = () => {
       ngayChieuGioChieu: "",
       giaVe: 75000,
     },
-    validationSchema,
+    validationSchema: scheduleValidationSchema,
     onSubmit: (values) => {
-      const [date, time] = values.ngayChieuGioChieu.split("T");
-      const [year, month, day] = date.split("-");
       const payload = {
-        maPhim: Number(values.maPhim),
-        maRap: values.maRap,
-        giaVe: Number(values.giaVe),
-        ngayChieuGioChieu: `${day}/${month}/${year} ${time}:00`,
+        ...values,
+        ngayChieuGioChieu: formatDateTimeForSubmit(values.ngayChieuGioChieu),
       };
       createSchedule.mutate(payload, {
         onSuccess: () => {
@@ -79,61 +77,7 @@ const CreateSchedulePage = () => {
       </div>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* LEFT */}
-        {!selectedMovie ? (
-          <div className="flex min-h-170 items-center justify-center rounded-2xl border border-[#F0BB3B]/30 bg-[#2A0617]/60 p-8">
-            <div className="text-center">
-              <span className="text-6xl">🎬</span>
-              <h2 className="text-2xl font-bold text-white py-5">Chưa chọn phim</h2>
-              <p className="text-gray-400">
-                Hãy chọn một bộ phim để xem thông tin
-                <br />
-                và tạo lịch chiếu.
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-[#F0BB3B]/30 bg-[#2A0617]/60 p-6">
-            <div className="relative overflow-hidden rounded-xl">
-              {selectedMovie.hot && (
-                <span className="absolute left-4 top-4 rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white shadow-lg">
-                  HOT
-                </span>
-              )}
-              <img src={selectedMovie.hinhAnh} alt={selectedMovie.tenPhim} className="h-117 w-full object-cover" />
-            </div>
-            <h2 className="mt-6 text-2xl font-bold text-[#F0BB3B]">{selectedMovie.tenPhim}</h2>
-            <div className="mt-6 space-y-4">
-              <div className="flex justify-between border-b border-white/10 pb-3">
-                <span className="font-semibold text-[#F0BB3B]">Mã phim</span>
-                <span className="text-gray-300">{selectedMovie.maPhim}</span>
-              </div>
-              <div className="flex justify-between border-b border-white/10 pb-3">
-                <span className="font-semibold text-[#F0BB3B]">Ngày khởi chiếu</span>
-                <span className="text-gray-300">
-                  {new Date(selectedMovie.ngayKhoiChieu).toLocaleDateString("vi-VN")}
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-white/10 pb-3">
-                <span className="font-semibold text-[#F0BB3B]">Đánh giá</span>
-                <span className="text-gray-300">⭐ {selectedMovie.danhGia}/10</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-semibold text-[#F0BB3B]">Trạng thái</span>
-                <span
-                  className={`font-semibold ${
-                    selectedMovie.dangChieu
-                      ? "text-green-400"
-                      : selectedMovie.sapChieu
-                        ? "text-orange-400"
-                        : "text-red-400"
-                  }`}
-                >
-                  {selectedMovie.dangChieu ? "Đang chiếu" : selectedMovie.sapChieu ? "Sắp chiếu" : "Ngừng chiếu"}
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
+        <MovieInfoCard movie={selectedMovie} />
         {/* RIGHT */}
         <form onSubmit={formik.handleSubmit} className="rounded-2xl border border-[#442c54]/50 bg-[#2a1b35]/70 p-6">
           <div className="space-y-6">

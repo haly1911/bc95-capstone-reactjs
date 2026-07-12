@@ -37,15 +37,6 @@ const AdminLayout = () => {
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
       `}
       >
-        <div className="absolute right-4 top-5 lg:hidden">
-          <button
-            onClick={() => setIsSidebarOpen(false)}
-            className="text-gray-400 hover:text-white text-xl cursor-pointer"
-          >
-            <i className="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-
         <div className="px-6 py-6 border-b border-[#442c54]/30">
           <Link to="/admin" className="font-serif text-4xl" onClick={() => setIsSidebarOpen(false)}>
             Lumière<span className="text-[#F0BB3B] drop-shadow-[0_0_10px_rgba(240,187,59,0.6)]">.</span>

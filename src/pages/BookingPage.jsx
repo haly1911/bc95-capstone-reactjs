@@ -6,6 +6,7 @@ import { selectorIsLoggedIn } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
 import { useSeatMap } from "../hooks/useBooking";
 import LoadingSpinner from "../components/LoadingSpinner";
+import MovieSummarySidebar from "../components/MovieSummarySidebar";
 
 const BookingPage = () => {
   const dispatch = useDispatch();
@@ -146,7 +147,7 @@ const BookingPage = () => {
   return (
     <main className="wrapper">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 pt-32 pb-16">
-        <section className="bg-[#171528] border border-white/10 rounded-3xl p-7 lg:col-span-2">
+        <section className="bg-[#2a1b35]/40 border border-[#442c54]/50 backdrop-blur-lg rounded-3xl p-7 lg:col-span-2">
           <div className="mx-auto mb-8 max-w-140 text-center">
             <div className="h-2 rounded-t-full bg-linear-to-b from-[#f0bb3b] to-transparent shadow-[0_-18px_20px_2px_rgba(232,194,117,0.15)]" />
             <div className="mt-3 text-sm tracking-wider text-[#8a85a8]">M À N &nbsp; H Ì N H</div>
@@ -176,77 +177,27 @@ const BookingPage = () => {
             </span>
           </div>
         </section>
-        <aside className="flex flex-col gap-5 lg:sticky lg:top-6 self-start lg:col-span-1">
-          <div className="relative h-50 rounded-3xl overflow-hidden">
-            <img src={movieInfo.hinhAnh} className="w-full h-full object-cover" alt={movieInfo.tenPhim} />
-            <span className="absolute top-3.5 left-3.5 z-10 px-3 py-1.5 text-xs uppercase tracking-widest rounded-full bg-black/40 backdrop-blur">
-              2D Phụ Đề
-            </span>
-            <div className="absolute left-0 bottom-0 w-full py-3 px-3 z-10 text-[#f0bb3b] bg-black/80">
-              <h3 className="text-2xl tracking-widest text-center truncate">{movieInfo.tenPhim}</h3>
-            </div>
-          </div>
-          <div className="bg-[#171528] border border-white/10 rounded-3xl p-7 text-lg mb-4">
-            <h4>Thông Tin Đặt Vé</h4>
-            <div className="ticket-info">
-              <span>Ngày Chiếu</span>
-              <span>{movieInfo?.ngayChieu}</span>
-            </div>
-            <div className="ticket-info">
-              <span>Suất Chiếu</span>
-              <span>{movieInfo?.gioChieu}</span>
-            </div>
-            <div className="ticket-info">
-              <span>Rạp Chiếu</span>
-              <span>
-                {movieInfo?.tenCumRap} - <span className="text-[#f0bb3b]">{movieInfo?.tenRap}</span>
-              </span>
-            </div>
-            <div className="ticket-info">
-              <span>Số Vé</span>
-              <span>{selectedSeats.length}</span>
-            </div>
-            <div className="mt-3">
-              <div className="booking-info-titles mb-2">Ghế Đã Chọn</div>
-              <div className="flex flex-wrap gap-1.5 min-h-7 lg:max-h-24 lg:overflow-y-auto">
-                {selectedSeats.length === 0 ? (
-                  <p className="italic text-xs text-[#8a85a8]">Chưa có ghế nào được chọn</p>
-                ) : (
-                  selectedSeats.map((seat) => (
-                    <div key={seat.tenGhe} className="flex items-center justify-center gap-1">
-                      <div className="px-2 py-1 text-xs font-bold rounded-md bg-[#f0bb3b] text-[#221a08]">
-                        {`Ghế ${seat.tenGhe} - ${seat.giaVe.toLocaleString("vi-VN")} VND`}
-                        <button
-                          onClick={() => handleSeatSelection(seat)}
-                          className="hover:text-red-600 ml-2 text-sm font-normal cursor-pointer"
-                          title="Hủy chọn"
-                        >
-                          x
-                        </button>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-            <div className="flex justify-between items-baseline mt-5 pt-4 border-t border-white/10">
-              <span className="booking-info-titles">Tổng Tiền</span>
-              <span className="font-serif text-3xl text-[#f0bb3b]">{totalAmount.toLocaleString("vi-VN")} VND</span>
-            </div>
-            <button
-              onClick={handlePayment}
-              className={`w-full mt-5 py-3.5 rounded-xl font-semibold text-sm tracking-wider duration-300 transition-all
-                ${
-                  selectedSeats.length > 0
-                    ? "bg-[#f0bb3b] text-[#221a08] hover:scale-102 cursor-pointer"
-                    : "bg-white/5 text-white/20 cursor-not-allowed"
-                }`}
-              disabled={selectedSeats.length === 0}
-            >
-              Thanh Toán
-            </button>
-          </div>
-        </aside>
+        <MovieSummarySidebar
+          movieInfo={movieInfo}
+          showtimeInfo={{ ...movieInfo, maLichChieu: showtimeId }}
+          selectedSeats={selectedSeats}
+          totalAmount={totalAmount}
+          variant="booking"
+          onRemoveSeat={handleSeatSelection}
+        >
+          <button
+            onClick={handlePayment}
+            className={`w-full py-3.5 rounded-xl font-semibold text-sm tracking-wider duration-300 transition-all
+      ${
+        selectedSeats.length > 0
+          ? "bg-[#f0bb3b] text-[#221a08] hover:scale-102 cursor-pointer"
+          : "bg-white/5 text-white/20 cursor-not-allowed"
+      }`}
+            disabled={selectedSeats.length === 0}
+          >
+            Thanh Toán
+          </button>
+        </MovieSummarySidebar>
       </div>
     </main>
   );

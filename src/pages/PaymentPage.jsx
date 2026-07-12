@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useNavigateBooking, useBookTickets } from "../hooks/useBooking";
+import MovieSummarySidebar from "../components/MovieSummarySidebar";
 
 const cardSchema = Yup.object().shape({
   cardNumber: Yup.string()
@@ -231,98 +232,45 @@ const PaymentPage = () => {
             </div>
           </section>
 
-          <aside className="lg:col-span-1">
-            <div className="bg-[#2a1b35]/40 border border-[#442c54]/50 rounded-3xl p-6 backdrop-blur-lg sticky top-28">
-              <h3 className="text-lg font-bold mb-4 border-b border-[#442c54]/40 pb-3 text-white">
-                Thông tin đơn hàng
-              </h3>
+          <MovieSummarySidebar
+            movieInfo={movieInfo}
+            showtimeInfo={showtimeInfo}
+            selectedSeats={selectedSeats}
+            totalAmount={totalAmount}
+            variant="payment"
+          >
+            <button
+              onClick={handleTriggerPayment}
+              disabled={isPending}
+              className={`w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2
+      ${
+        isPending
+          ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+          : "bg-[#f0bb3b] text-black hover:bg-[#e2af31] hover:scale-102 cursor-pointer shadow-lg shadow-[#f0bb3b]/10"
+      }`}
+            >
+              {isPending ? (
+                <>
+                  <i className="fa-solid fa-spinner animate-spin"></i>
+                  <span>Đang xử lý giao dịch...</span>
+                </>
+              ) : (
+                <>
+                  <i className="fa-solid fa-circle-check"></i>
+                  <span>Xác nhận thanh toán</span>
+                </>
+              )}
+            </button>
 
-              <div className="flex gap-4 mb-4">
-                <img
-                  src={movieInfo?.hinhAnh}
-                  alt={movieInfo?.tenPhim}
-                  className="w-16 h-24 object-cover rounded-xl border border-[#442c54]/30"
-                />
-                <div>
-                  <h4 className="font-bold text-base text-[#f0bb3b] leading-tight mb-1">{movieInfo?.tenPhim}</h4>
-                  <span className="text-[11px] bg-purple-950/60 px-2 py-0.5 rounded text-gray-400 border border-[#442c54]/30">
-                    2D Phụ Đề
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-2 border-b border-[#442c54]/30 pb-4 mb-4 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Rạp</span>
-                  <span className="font-medium text-right">{showtimeInfo.tenCumRap}</span>
-                </div>
-                {showtimeInfo.tenRap && (
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Phòng chiếu</span>
-                    <span className="text-[#f0bb3b] font-semibold">{showtimeInfo.tenRap}</span>
-                  </div>
-                )}
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Suất chiếu</span>
-                  <span className="font-medium text-[#f0bb3b]">{movieInfo?.gioChieu}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Ngày chiếu</span>
-                  <span className="capitalize">{movieInfo?.ngayChieu}</span>
-                </div>
-              </div>
-
-              <div className="border-b border-[#442c54]/30 pb-4 mb-4 text-sm">
-                <span className="text-gray-400 block mb-2">Danh sách ghế ({selectedSeats.length})</span>
-                <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto pr-1">
-                  {selectedSeats.map((seat) => (
-                    <span
-                      key={seat.maGhe || seat.tenGhe}
-                      className="px-2 py-0.5 text-xs font-semibold rounded bg-[#f0bb3b] text-black"
-                    >
-                      Ghế {seat.tenGhe}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex justify-between items-baseline mb-6">
-                <span className="text-sm text-gray-400">Số tiền cần thanh toán</span>
-                <span className="font-bold text-2xl text-[#f0bb3b]">{totalAmount.toLocaleString("vi-VN")}đ</span>
-              </div>
-
-              <button
-                onClick={handleTriggerPayment}
-                disabled={isPending}
-                className={`w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2
-                  ${
-                    isPending
-                      ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                      : "bg-[#f0bb3b] text-black hover:bg-[#e2af31] hover:scale-102 cursor-pointer shadow-lg shadow-[#f0bb3b]/10"
-                  }`}
-              >
-                {isPending ? (
-                  <div className="flex items-center gap-2">
-                    <i className="fa-solid fa-spinner animate-spin"></i>
-                    <span>Đang xử lý giao dịch...</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <i className="fa-solid fa-circle-check"></i>
-                    <span>Xác nhận thanh toán</span>
-                  </div>
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={() => handleNavigateBooking(movieInfo, showtimeInfo, showtimeInfo?.tenCumRap)}
-                disabled={isPending}
-                className="w-full mt-3 py-2 text-xs text-center text-gray-400 hover:text-white transition-colors cursor-pointer block"
-              >
-                Quay lại sửa ghế
-              </button>
-            </div>
-          </aside>
+            <button
+              type="button"
+              onClick={() => handleNavigateBooking(movieInfo, showtimeInfo, showtimeInfo?.tenCumRap)}
+              disabled={isPending}
+              className="w-full mt-3 py-2 text-xs text-center text-gray-400 hover:text-white transition-colors cursor-pointer block"
+            >
+              Quay lại sửa ghế
+            </button>
+          </MovieSummarySidebar>
         </div>
       </div>
     </main>
