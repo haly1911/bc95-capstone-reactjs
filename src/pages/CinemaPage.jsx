@@ -29,14 +29,13 @@ const CinemaPage = () => {
           </div>
         )}
 
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="md:w-80 shrink-0">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="lg:w-80 shrink-0">
             <h2 className="text-gray-400 text-xs uppercase tracking-widest mb-4 font-semibold opacity-70">Chuỗi rạp</h2>
             <CinemaChainList
               chains={cinemaChainsList}
               selectedChain={selectedCinemaChain}
               onSelectChain={setSelectedCinemaChain}
-              variant="horizontal"
             />
           </div>
           <div className="flex-1">
@@ -70,7 +69,7 @@ const CinemaPage = () => {
                       {cinemaComplex.danhSachRap.length} phòng chiếu
                     </span>
                   </div>
-                  <div className="flex flex-wrap gap-2 pt-2 border-t border-purple-950/20">
+                  <div className="flex flex-wrap gap-1.5 pt-2 border-t border-purple-950/20">
                     {cinemaComplex.danhSachRap.map((screen) => (
                       <span
                         key={screen.maRap}

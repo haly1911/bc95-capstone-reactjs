@@ -96,7 +96,7 @@ const MovieFormModal = ({ isOpen, onClose, editingMovie, addMovieMutation, updat
           sapChieu: !!editingMovie.sapChieu,
           dangChieu: !!editingMovie.dangChieu,
           hot: !!editingMovie.hot,
-          danhGia: editingMovie.danhGia || 5,
+          danhGia: editingMovie.danhGia || "",
           hinhAnh: null,
         });
         setImagePreview(editingMovie.hinhAnh || "");
@@ -130,116 +130,94 @@ const MovieFormModal = ({ isOpen, onClose, editingMovie, addMovieMutation, updat
   const isLoading = addMovieMutation.isPending || updateMovieMutation.isPending;
 
   return (
-    <div
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 backdrop-blur-xs overflow-y-auto py-10"
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-2xl bg-linear-to-b from-[#16091F] to-[#2A0617] rounded-2xl border border-[#442c54]/50 shadow-2xl overflow-hidden my-auto"
-      >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#442c54]/50 bg-black/30">
+    <div onClick={onClose} className="modal-overlay overflow-y-auto py-10">
+      <div onClick={(e) => e.stopPropagation()} className="modal-bg overflow-hidden my-auto">
+        <div className="modal-title">
           <h3 className="text-white text-lg font-bold">
             {editingMovie ? "Cập nhật" : "Thêm"} <span className="text-[#F0BB3B]">phim điện ảnh</span>
           </h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-white text-2xl leading-none cursor-pointer">
-            &times;
+          <button onClick={onClose} className="cancel-icon">
+            <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <form onSubmit={formik.handleSubmit} className="px-6 py-4 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1">Tên phim</label>
+              <label className="label-titles">Tên phim</label>
               <input
                 type="text"
                 {...formik.getFieldProps("tenPhim")}
                 placeholder="Nhập tên bộ phim"
-                className="w-full bg-transparent border border-[#442c54]/50 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#F0BB3B]"
+                className="input-field"
               />
-              {formik.touched.tenPhim && formik.errors.tenPhim && (
-                <p className="text-red-400 text-xs mt-1">{formik.errors.tenPhim}</p>
-              )}
+              {formik.touched.tenPhim && formik.errors.tenPhim && <p className="err-msg">{formik.errors.tenPhim}</p>}
             </div>
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1">Trailer URL (Youtube)</label>
+              <label className="label-titles">Trailer URL (Youtube)</label>
               <input
                 type="text"
                 {...formik.getFieldProps("trailer")}
                 placeholder="https://youtube.com/watch?v=..."
-                className="w-full bg-transparent border border-[#442c54]/50 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#F0BB3B]"
+                className="input-field"
               />
-              {formik.touched.trailer && formik.errors.trailer && (
-                <p className="text-red-400 text-xs mt-1">{formik.errors.trailer}</p>
-              )}
+              {formik.touched.trailer && formik.errors.trailer && <p className="err-msg">{formik.errors.trailer}</p>}
             </div>
           </div>
 
           <div>
-            <label className="block text-gray-400 text-xs font-medium mb-1">Mô tả nội dung phim</label>
+            <label className="label-titles">Mô tả nội dung phim</label>
             <textarea
               rows="3"
               {...formik.getFieldProps("moTa")}
               placeholder="Nội dung tóm tắt cốt truyện cốt phim..."
-              className="w-full bg-transparent border border-[#442c54]/50 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#F0BB3B] resize-none"
+              className="input-field resize-none"
             />
-            {formik.touched.moTa && formik.errors.moTa && (
-              <p className="text-red-400 text-xs mt-1">{formik.errors.moTa}</p>
-            )}
+            {formik.touched.moTa && formik.errors.moTa && <p className="err-msg">{formik.errors.moTa}</p>}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1">Ngày khởi chiếu</label>
-              <input
-                type="date"
-                {...formik.getFieldProps("ngayKhoiChieu")}
-                className="w-full bg-transparent border border-[#442c54]/50 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#F0BB3B] text-gray-300"
-              />
+              <label className="label-titles">Ngày khởi chiếu</label>
+              <input type="date" {...formik.getFieldProps("ngayKhoiChieu")} className="input-field text-gray-300" />
               {formik.touched.ngayKhoiChieu && formik.errors.ngayKhoiChieu && (
-                <p className="text-red-400 text-xs mt-1">{formik.errors.ngayKhoiChieu}</p>
+                <p className="err-msg">{formik.errors.ngayKhoiChieu}</p>
               )}
             </div>
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1">Đánh giá điểm số (0 - 10)</label>
-              <input
-                type="number"
-                {...formik.getFieldProps("danhGia")}
-                className="w-full bg-transparent border border-[#442c54]/50 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#F0BB3B]"
-              />
-              {formik.touched.danhGia && formik.errors.danhGia && (
-                <p className="text-red-400 text-xs mt-1">{formik.errors.danhGia}</p>
-              )}
+              <label className="label-titles">Đánh giá điểm số (0 - 10)</label>
+              <input type="number" {...formik.getFieldProps("danhGia")} className="input-field" />
+              {formik.touched.danhGia && formik.errors.danhGia && <p className="err-msg">{formik.errors.danhGia}</p>}
             </div>
           </div>
 
           <div>
-            <label className="block text-gray-400 text-xs font-medium mb-2">Trạng thái hiển thị (Tags)</label>
+            <label className="label-titles">Trạng thái hiển thị (Tags)</label>
             <div className="flex gap-6 py-2.5 px-3 bg-black/20 border border-[#442c54]/30 rounded-lg">
-              <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none">
+              <label className="checkbox-label">
                 <input
                   type="checkbox"
                   checked={formik.values.dangChieu}
                   onChange={(e) => formik.setFieldValue("dangChieu", e.target.checked)}
-                  className="rounded text-[#F0BB3B] focus:ring-0 bg-transparent border-gray-700 w-4 h-4"
+                  className="checkbox-btn"
                 />{" "}
                 Đang chiếu
               </label>
-              <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none">
+              <label className="checkbox-label">
                 <input
                   type="checkbox"
                   checked={formik.values.sapChieu}
                   onChange={(e) => formik.setFieldValue("sapChieu", e.target.checked)}
-                  className="rounded text-[#F0BB3B] focus:ring-0 bg-transparent border-gray-700 w-4 h-4"
+                  className="checkbox-btn"
                 />{" "}
                 Sắp chiếu
               </label>
-              <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none">
+              <label className="checkbox-label">
                 <input
                   type="checkbox"
                   checked={formik.values.hot}
                   onChange={(e) => formik.setFieldValue("hot", e.target.checked)}
-                  className="rounded text-[#F0BB3B] focus:ring-0 bg-transparent border-gray-700 w-4 h-4"
+                  className="checkbox-btn"
                 />{" "}
                 Phim HOT
               </label>
@@ -247,7 +225,7 @@ const MovieFormModal = ({ isOpen, onClose, editingMovie, addMovieMutation, updat
           </div>
 
           <div>
-            <label className="block text-gray-400 text-xs font-medium mb-1">Hình ảnh Poster phim</label>
+            <label className="label-titles">Hình ảnh Poster phim</label>
             <div className="flex items-center gap-4 p-2 bg-black/10 border border-[#442c54]/30 rounded-lg">
               <input
                 ref={fileInputRef}
@@ -270,24 +248,14 @@ const MovieFormModal = ({ isOpen, onClose, editingMovie, addMovieMutation, updat
                 </div>
               )}
             </div>
-            {formik.touched.hinhAnh && formik.errors.hinhAnh && (
-              <p className="text-red-400 text-xs mt-1">{formik.errors.hinhAnh}</p>
-            )}
+            {formik.touched.hinhAnh && formik.errors.hinhAnh && <p className="err-msg">{formik.errors.hinhAnh}</p>}
           </div>
 
           <div className="flex justify-end gap-3 pt-3 border-t border-[#442c54]/50">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-5 py-2 rounded-full text-sm font-semibold text-gray-400 hover:text-white border border-[#442c54]/50 hover:border-[#F0BB3B]/50 cursor-pointer"
-            >
-              Hủy
+            <button type="button" onClick={onClose} className="cancel-btn">
+              Huỷ
             </button>
-            <button
-              type="submit"
-              disabled={!formik.isValid || isLoading}
-              className="bg-[#F0BB3B] hover:bg-[#dfac30] disabled:bg-yellow-800/50 disabled:cursor-not-allowed text-gray-950 font-bold px-6 py-2 rounded-full text-sm shadow-lg cursor-pointer"
-            >
+            <button type="submit" disabled={!formik.isValid || isLoading} className="accept-btn text-sm">
               {isLoading ? "Đang xử lý..." : editingMovie ? "Lưu thay đổi" : "Thêm phim mới"}
             </button>
           </div>

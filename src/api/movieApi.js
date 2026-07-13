@@ -11,8 +11,8 @@ export const movieApi = {
     return axiosInstance.get(url);
   },
 
-  getMovieDetail: (groupId) => {
-    return axiosInstance.get(`/QuanLyPhim/LayThongTinPhim?maPhim=${groupId}`);
+  getMovieDetail: (movieId) => {
+    return axiosInstance.get(`/QuanLyPhim/LayThongTinPhim?maPhim=${movieId}`);
   },
   addMovie: (formData) => {
     return axiosInstance.post("/QuanLyPhim/ThemPhimUploadHinh", formData);

@@ -5,15 +5,13 @@ const PagePagination = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <div className="flex items-center justify-center gap-2 mt-8">
-      {/* Nút Previous */}
       <button
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
-        className="grid h-10 w-10 place-items-center rounded-full border border-gray-800 bg-black/20 transition disabled:opacity-40 disabled:pointer-events-none enabled:hover:border-[#F0BB3B] enabled:hover:text-[#F0BB3B] enabled:cursor-pointer"
+        className="pagination-arrow"
       >
         <i className="fa-solid fa-arrow-left text-xs"></i>
       </button>
-      {/* Danh sách các số trang */}
       {Array.from({ length: totalPages }).map((_, i) => {
         const n = i + 1;
         const active = n === currentPage;
@@ -31,11 +29,10 @@ const PagePagination = ({ currentPage, totalPages, onPageChange }) => {
           </button>
         );
       })}
-      {/* Nút Next */}
       <button
         onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
-        className="grid h-10 w-10 place-items-center rounded-full border border-gray-800 bg-black/20 transition disabled:opacity-40 disabled:pointer-events-none enabled:hover:border-[#F0BB3B] enabled:hover:text-[#F0BB3B] enabled:cursor-pointer"
+        className="pagination-arrow"
       >
         <i className="fa-solid fa-arrow-right text-xs"></i>
       </button>

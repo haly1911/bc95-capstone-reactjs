@@ -48,7 +48,7 @@ const MovieDetailPage = () => {
   }
 
   const handleScrollToBooking = (e) => {
-    e.preventDefault(); // Chặn hành vi mặc định thay đổi URL
+    e.preventDefault();
     const element = document.getElementById("booking");
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -84,17 +84,17 @@ const MovieDetailPage = () => {
           <div className="flex flex-col gap-5">
             <div className="flex flex-wrap gap-2">
               {movie.hot && (
-                <span className="rounded-full bg-red-500/10 border border-red-500/30 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-400 backdrop-blur">
+                <span className="status-badge bg-red-500/10 border-red-500/30 uppercase tracking-wider text-red-400 backdrop-blur">
                   <i className="fa-solid fa-fire text-red-500 mr-1"></i> HOT
                 </span>
               )}
               {movie.dangChieu && (
-                <span className="rounded-full bg-green-500/10 border border-green-500/30 px-3 py-1 text-xs font-bold uppercase tracking-wider text-green-400 backdrop-blur">
+                <span className="status-badge bg-green-500/10 border-green-500/30 uppercase tracking-wider text-green-400 backdrop-blur">
                   <i className="fa-solid fa-circle-check text-green-500 mr-1"></i> Đang chiếu
                 </span>
               )}
               {movie.sapChieu && (
-                <span className="rounded-full bg-blue-500/10 border border-blue-500/30 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-400 backdrop-blur">
+                <span className="status-badge bg-blue-500/10 border-blue-500/30 uppercase tracking-wider text-blue-400 backdrop-blur">
                   <i className="fa-solid fa-clock text-blue-500 mr-1"></i> Sắp chiếu
                 </span>
               )}
@@ -113,7 +113,6 @@ const MovieDetailPage = () => {
                 <strong className="text-[#f0bb3b] font-bold">{movie.danhGia}</strong>
                 /10
               </span>
-
               <span className="flex items-center gap-1.5">
                 <i className="fa-solid fa-calendar-days text-[#f0bb3b] mr-1"></i>{" "}
                 {formatDateDisplay(movie.ngayKhoiChieu)}
@@ -153,7 +152,6 @@ const MovieDetailPage = () => {
           </h2>
           <p className="mt-1 text-sm text-gray-400">Chọn hệ thống rạp yêu thích và suất chiếu phù hợp với bạn</p>
         </div>
-
         {isLoadingSchedule ? (
           <div className="flex justify-center py-16">
             <LoadingSpinner />

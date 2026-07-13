@@ -134,7 +134,7 @@ const UserManagementPage = () => {
                     <div className="flex items-center justify-center gap-3 h-full">
                       <h4 className="text-base font-bold">{user.hoTen}</h4>
                       <span
-                        className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
+                        className={`text-xs font-semibold px-2 py-0.5 rounded ${
                           user.maLoaiNguoiDung === "QuanTri"
                             ? "bg-red-500/10 text-red-400 border border-red-500/20"
                             : "bg-[#F0BB3B]/10 text-[#F0BB3B] border border-[#F0BB3B]/20"
@@ -146,13 +146,13 @@ const UserManagementPage = () => {
                     <div className="flex gap-3 text-sm">
                       <button
                         onClick={() => handleOpenModal(user)}
-                        className="text-blue-700 hover:text-blue-500 cursor-pointer"
+                        className="action-icon text-blue-700 hover:text-blue-500"
                       >
                         <i className="fa-solid fa-pencil"></i>
                       </button>
                       <button
                         onClick={() => setUserToDelete(user.taiKhoan)}
-                        className="text-red-700 hover:text-red-500 cursor-pointer"
+                        className="action-icon text-red-700 hover:text-red-500"
                       >
                         <i className="fa-solid fa-trash"></i>
                       </button>
@@ -219,13 +219,13 @@ const UserManagementPage = () => {
                         <div className="flex justify-center gap-2">
                           <button
                             onClick={() => handleOpenModal(user)}
-                            className="text-blue-700 hover:text-blue-500 transition hover:scale-110 cursor-pointer"
+                            className="action-icon text-blue-700 hover:text-blue-500"
                           >
                             <i className="fa-solid fa-pencil"></i>
                           </button>
                           <button
                             onClick={() => setUserToDelete(user.taiKhoan)}
-                            className="text-red-700 hover:text-red-500 transition hover:scale-110 cursor-pointer"
+                            className="action-icon text-red-700 hover:text-red-500"
                           >
                             <i className="fa-solid fa-trash"></i>
                           </button>

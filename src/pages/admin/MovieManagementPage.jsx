@@ -138,21 +138,21 @@ const MovieManagementPage = () => {
                   />
                   <div className="flex-1 min-w-0 flex flex-col justify-between">
                     <div>
-                      <h4 className="text-sm font-bold text-white truncate">{movie.tenPhim}</h4>
-                      <p className="text-[11px] text-gray-400 line-clamp-2 mt-1">{movie.moTa || "(Chưa có mô tả)"}</p>
+                      <h4 className="text-lg font-bold text-white truncate">{movie.tenPhim}</h4>
+                      <p className="text-xs text-gray-400 line-clamp-2 mt-1">{movie.moTa || "(Chưa có mô tả)"}</p>
                       <div className="flex flex-wrap gap-1 mt-2">
                         {movie.hot && (
-                          <span className="bg-red-500/20 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded text-[9px] font-bold">
+                          <span className="status-badge bg-red-500/20 text-red-400 border-red-500/30">
                             HOT
                           </span>
                         )}
                         {movie.dangChieu && (
-                          <span className="bg-green-500/20 text-green-400 border border-green-500/30 px-1.5 py-0.5 rounded text-[9px] font-bold">
+                          <span className="status-badge bg-green-500/20 text-green-400 border-green-500/30">
                             ĐANG CHIẾU
                           </span>
                         )}
                         {movie.sapChieu && (
-                          <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded text-[9px] font-bold">
+                          <span className="status-badge bg-blue-500/20 text-blue-400 border-blue-500/30">
                             SẮP CHIẾU
                           </span>
                         )}
@@ -161,13 +161,13 @@ const MovieManagementPage = () => {
                     <div className="flex justify-end gap-4 text-sm pt-2 border-t border-purple-950/20 mt-2">
                       <button
                         onClick={() => handleOpenModal(movie)}
-                        className="text-blue-700 hover:text-blue-500 cursor-pointer"
+                        className="action-icon text-blue-700 hover:text-blue-500"
                       >
                         <i className="fa-solid fa-pencil"></i>
                       </button>
                       <button
                         onClick={() => setMovieToDelete(movie)}
-                        className="text-red-700 hover:text-red-500 cursor-pointer"
+                        className="action-icon text-red-700 hover:text-red-500"
                       >
                         <i className="fa-solid fa-trash"></i>
                       </button>
@@ -219,17 +219,15 @@ const MovieManagementPage = () => {
                       <td className="py-4">
                         <div className="flex flex-wrap gap-1">
                           {movie.hot && (
-                            <span className="text-[10px] bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded font-medium">
-                              Hot
-                            </span>
+                            <span className="status-badge font-medium bg-red-500/10 text-red-400 border-red-500/20">Hot</span>
                           )}
                           {movie.dangChieu && (
-                            <span className="text-[10px] bg-green-500/10 text-green-400 border border-green-500/20 px-2 py-0.5 rounded font-medium">
+                            <span className="status-badge font-medium bg-green-500/10 text-green-400 border-green-500/20">
                               Đang chiếu
                             </span>
                           )}
                           {movie.sapChieu && (
-                            <span className="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded font-medium">
+                            <span className="status-badge font-medium bg-blue-500/10 text-blue-400 border-blue-500/20">
                               Sắp chiếu
                             </span>
                           )}
@@ -239,14 +237,14 @@ const MovieManagementPage = () => {
                         <div className="flex justify-center gap-4">
                           <button
                             onClick={() => handleOpenModal(movie)}
-                            className="text-blue-700 hover:text-blue-500 transition hover:scale-110 cursor-pointer"
+                            className="action-icon text-blue-700 hover:text-blue-500"
                             title="Chỉnh sửa"
                           >
                             <i className="fa-solid fa-pencil"></i>
                           </button>
                           <button
                             onClick={() => setMovieToDelete(movie)}
-                            className="text-red-700 hover:text-red-500 transition hover:scale-110 cursor-pointer"
+                            className="action-icon text-red-700 hover:text-red-500"
                             title="Xóa phim"
                           >
                             <i className="fa-solid fa-trash"></i>

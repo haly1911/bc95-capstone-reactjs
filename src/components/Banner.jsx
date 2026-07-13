@@ -25,7 +25,7 @@ const Banner = ({ movies, onWatchTrailer }) => {
             <SwiperSlide key={movie.maPhim}>
               <div className="relative overflow-hidden grid gap-8 lg:grid-cols-3 px-6 py-12 sm:px-16 lg:px-24 items-center min-h-120 lg:min-h-138">
                 <div
-                  className="absolute inset-0 bg-cover bg-center transition-all duration-500 scale-105 opacity-40 blur-[3px] lg:opacity-25 lg:blur-xs"
+                  className="absolute inset-0 bg-cover bg-center transition-all duration-500 scale-105 opacity-40 blur-xs lg:opacity-25"
                   style={{ backgroundImage: `url(${movie.hinhAnh})` }}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black via-black/80 to-transparent lg:bg-linear-to-r lg:from-black lg:via-black/70 lg:to-black/30" />

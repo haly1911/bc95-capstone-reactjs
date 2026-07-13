@@ -69,7 +69,7 @@ const MovieSummarySidebar = ({
                       className="hover:text-red-600 ml-1 text-sm font-bold cursor-pointer transition-colors"
                       title="Hủy chọn"
                     >
-                      ×
+                      <i className="fa-solid fa-xmark fa-2xs"></i>
                     </button>
                   )}
                 </div>

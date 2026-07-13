@@ -32,8 +32,8 @@ const SchedulePage = () => {
         <p className="text-gray-400 text-lg">Chọn rạp yêu thích để cập nhật khung giờ chiếu mới nhất ngày hôm nay</p>
       </div>
       <div className="px-4 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="md:w-72 shrink-0">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="lg:w-72 shrink-0">
             <h2 className="text-gray-400 text-xs uppercase tracking-widest mb-4 font-semibold opacity-70">
               Hệ thống rạp
             </h2>
@@ -46,7 +46,6 @@ const SchedulePage = () => {
                 chains={cinemaChains}
                 selectedChain={selectedChain}
                 onSelectChain={setSelectedChain}
-                variant="horizontal"
               />
             )}
           </div>
@@ -101,7 +100,7 @@ const SchedulePage = () => {
                           <div className="flex flex-wrap items-center gap-2 mb-3">
                             <h3 className="text-lg font-bold text-white tracking-wide line-clamp-1">{movie.tenPhim}</h3>
                             {movie.hot && (
-                              <span className="text-[10px] bg-red-600/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded font-bold uppercase">
+                              <span className="text-xs bg-red-600/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded font-bold uppercase">
                                 Hot
                               </span>
                             )}

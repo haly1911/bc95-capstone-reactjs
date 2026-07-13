@@ -104,30 +104,21 @@ const UserFormModal = ({ open, editingUser, users, onClose }) => {
   if (!open) return null;
 
   return (
-    <div
-      onClick={handleCloseModal}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 backdrop-blur-xs"
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg bg-linear-120 from-[#16091F] to-[#2A0617] rounded-2xl border border-[#442c54]/50 shadow-2xl overflow-hidden"
-      >
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#442c54]/50 bg-black/30">
+    <div onClick={handleCloseModal} className="modal-overlay">
+      <div onClick={(e) => e.stopPropagation()} className="modal-bg overflow-hidden">
+        <div className="modal-title">
           <h3 className="text-white text-lg font-bold">
             {editingUser ? "Cập nhật" : "Thêm"}{" "}
             <span className="text-[#F0BB3B]">người dùng {editingUser ? "" : "mới"}</span>
           </h3>
-          <button
-            onClick={handleCloseModal}
-            className="text-gray-400 hover:text-white transition-colors text-2xl leading-none cursor-pointer"
-          >
-            &times;
+          <button onClick={handleCloseModal} className="cancel-icon">
+            <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
         <form onSubmit={formik.handleSubmit} className="px-6 py-5 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1.5">Tài khoản</label>
+              <label className="label-titles">Tài khoản</label>
               <input
                 type="text"
                 {...formik.getFieldProps("taiKhoan")}
@@ -140,12 +131,12 @@ const UserFormModal = ({ open, editingUser, users, onClose }) => {
                 }`}
               />
               {formik.touched.taiKhoan && formik.errors.taiKhoan && (
-                <p className="text-red-400 text-xs mt-1">{formik.errors.taiKhoan}</p>
+                <p className="err-msg">{formik.errors.taiKhoan}</p>
               )}
             </div>
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1.5">Mật khẩu</label>
-              <div className="flex items-center border border-[#442c54]/50 rounded-lg px-3 py-2.5 focus-within:border-[#F0BB3B] focus-within:ring-1 focus-within:ring-[#F0BB3B]/30 transition">
+              <label className="label-titles">Mật khẩu</label>
+              <div className="input-field-with-icon">
                 <input
                   type={showPassword ? "text" : "password"}
                   {...formik.getFieldProps("matKhau")}
@@ -162,56 +153,43 @@ const UserFormModal = ({ open, editingUser, users, onClose }) => {
                 </button>
               </div>
               {formik.touched.matKhau && formik.errors.matKhau && (
-                <p className="text-red-400 text-xs mt-1">{formik.errors.matKhau}</p>
+                <p className="err-msg">{formik.errors.matKhau}</p>
               )}
             </div>
           </div>
 
           <div>
-            <label className="block text-gray-400 text-xs font-medium mb-1.5">Họ tên</label>
-            <input
-              type="text"
-              {...formik.getFieldProps("hoTen")}
-              placeholder="Nhập họ tên"
-              className="w-full bg-transparent placeholder-gray-500 border border-[#442c54]/50 rounded-lg px-3 py-2.5 outline-none focus:border-[#F0BB3B] focus:ring-1 focus:ring-[#F0BB3B]/30 text-sm transition"
-            />
+            <label className="label-titles">Họ tên</label>
+            <input type="text" {...formik.getFieldProps("hoTen")} placeholder="Nhập họ tên" className="input-field" />
             {formik.touched.hoTen && formik.errors.hoTen && (
-              <p className="text-red-400 text-xs mt-1">{formik.errors.hoTen}</p>
+              <p className="err-msg">{formik.errors.hoTen}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-gray-400 text-xs font-medium mb-1.5">Email</label>
+            <label className="label-titles">Email</label>
             <input
               type="email"
               {...formik.getFieldProps("email")}
               placeholder="example@email.com"
-              className="w-full bg-transparent placeholder-gray-500 border border-[#442c54]/50 rounded-lg px-3 py-2.5 outline-none focus:border-[#F0BB3B] focus:ring-1 focus:ring-[#F0BB3B]/30 text-sm transition"
+              className="input-field"
             />
             {formik.touched.email && formik.errors.email && (
-              <p className="text-red-400 text-xs mt-1">{formik.errors.email}</p>
+              <p className="err-msg">{formik.errors.email}</p>
             )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1.5">Số điện thoại</label>
-              <input
-                type="text"
-                {...formik.getFieldProps("soDt")}
-                placeholder="0901234567"
-                className="w-full bg-transparent placeholder-gray-500 border border-[#442c54]/50 rounded-lg px-3 py-2.5 outline-none focus:border-[#F0BB3B] focus:ring-1 focus:ring-[#F0BB3B]/30 text-sm transition"
-              />
+              <label className="label-titles">Số điện thoại</label>
+              <input type="text" {...formik.getFieldProps("soDt")} placeholder="0901234567" className="input-field" />
               {formik.touched.soDt && formik.errors.soDt && (
-                <p className="text-red-400 text-xs mt-1">{formik.errors.soDt}</p>
+                <p className="err-msg">{formik.errors.soDt}</p>
               )}
             </div>
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1.5">Loại tài khoản</label>
-              <select
-                {...formik.getFieldProps("maLoaiNguoiDung")}
-                className="w-full bg-transparent border border-[#442c54]/50 rounded-lg px-3 py-2.5 outline-none focus:border-[#F0BB3B] focus:ring-1 focus:ring-[#F0BB3B]/30 text-sm transition cursor-pointer"
-              >
+              <label className="label-titles">Loại tài khoản</label>
+              <select {...formik.getFieldProps("maLoaiNguoiDung")} className="input-field">
                 <option value="KhachHang" className="bg-[#2A0617]">
                   Khách hàng
                 </option>
@@ -220,23 +198,19 @@ const UserFormModal = ({ open, editingUser, users, onClose }) => {
                 </option>
               </select>
               {formik.touched.maLoaiNguoiDung && formik.errors.maLoaiNguoiDung && (
-                <p className="text-red-400 text-xs mt-1">{formik.errors.maLoaiNguoiDung}</p>
+                <p className="err-msg">{formik.errors.maLoaiNguoiDung}</p>
               )}
             </div>
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t border-[#442c54]/50">
-            <button
-              type="button"
-              onClick={handleCloseModal}
-              className="px-5 py-2.5 rounded-full text-sm font-semibold text-gray-400 hover:text-white border border-[#442c54]/50 hover:border-[#F0BB3B]/50 transition-colors cursor-pointer"
-            >
-              Hủy
+            <button type="button" onClick={handleCloseModal} className="cancel-btn">
+              Huỷ
             </button>
             <button
               type="submit"
               disabled={!formik.isValid || addUser.isPending || updateUser.isPending}
-              className="bg-[#F0BB3B] hover:bg-[#dfac30] disabled:bg-yellow-800/50 disabled:text-gray-500 disabled:cursor-not-allowed text-gray-950 font-bold px-6 py-2.5 rounded-full text-sm transition-all shadow-lg shadow-[#F0BB3B]/10 cursor-pointer"
+              className="accept-btn text-sm"
             >
               {addUser.isPending || updateUser.isPending
                 ? "Đang xử lý..."

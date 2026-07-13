@@ -16,19 +16,9 @@ const MovieCard = ({ movie }) => {
         />
         <div className="absolute inset-0 bg-gradient-overlay opacity-80" />
         <div className="absolute top-2 left-2 flex flex-col gap-1">
-          {movie.hot && (
-            <span className="bg-red-500 text-white text-center text-xs font-bold px-2 py-1 rounded-full">HOT</span>
-          )}
-          {movie.dangChieu && (
-            <span className="bg-yellow-500 text-black text-center text-xs font-bold px-2 py-1 rounded-full">
-              Đang chiếu
-            </span>
-          )}
-          {movie.sapChieu && (
-            <span className="bg-violet-500 text-white text-center text-xs font-bold px-2 py-1 rounded-full">
-              Sắp chiếu
-            </span>
-          )}
+          {movie.hot && <span className="status-badge border-0 bg-red-500 text-white">HOT</span>}
+          {movie.dangChieu && <span className="status-badge border-0 bg-yellow-500 text-black">Đang chiếu</span>}
+          {movie.sapChieu && <span className="status-badge border-0 bg-violet-500 text-white">Sắp chiếu</span>}
         </div>
         <div className="absolute top-2 right-2 flex items-center gap-1 rounded-full bg-black/70 px-3 py-1 backdrop-blur">
           <span className="text-xs">⭐</span>

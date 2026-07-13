@@ -17,6 +17,7 @@ const registerSchema = Yup.object().shape({
   soDt: Yup.string()
     .required("Số điện thoại không được để trống")
     .matches(/^\d{10}$/, "Số điện thoại phải là số và có đúng 10 chữ số"),
+  email: Yup.string().required("Email không được để trống").email("Email không hợp lệ"),
   taiKhoan: Yup.string().required("Tài khoản không được để trống"),
   matKhau: Yup.string().required("Mật khẩu không được để trống"),
 });
@@ -33,7 +34,8 @@ const LoginPage = () => {
   const formik = useFormik({
     initialValues: {
       hoTen: "",
-      soDT: "",
+      soDt: "",
+      email: "",
       taiKhoan: "",
       matKhau: "",
     },
@@ -57,7 +59,15 @@ const LoginPage = () => {
             navigate("/", { replace: true });
           }
         } else {
-          await authApi.register(values);
+          const registerData = {
+            taiKhoan: values.taiKhoan,
+            matKhau: values.matKhau,
+            hoTen: values.hoTen,
+            soDt: values.soDt,
+            email: values.email,
+            maNhom: "GP01",
+          };
+          await authApi.register(registerData);
           toast.success("🎉 Đăng ký thành công! Hãy đăng nhập tài khoản mới.");
           setIsLogin(true);
           formik.resetForm();
@@ -143,8 +153,8 @@ const LoginPage = () => {
           {!isLogin && (
             <>
               <div className="flex flex-col gap-1.5 animate-fadeIn">
-                <label className="text-xs font-semibold tracking-wide uppercase opacity-70 px-1">Họ và tên</label>
-                <div className="px-4 py-2.5 rounded-full border border-white/20 bg-white/5 flex items-center gap-3 focus-within:border-[#F0BB3B] focus-within:ring-1 focus-within:ring-[#F0BB3B] transition-all">
+                <label className="label-titles tracking-wide uppercase px-1">Họ và tên</label>
+                <div className="input-field-with-icon">
                   <div className="opacity-50 flex items-center">
                     <i className="fa-regular fa-user fa-sm"></i>
                   </div>
@@ -152,52 +162,69 @@ const LoginPage = () => {
                     type="text"
                     {...formik.getFieldProps("hoTen")}
                     placeholder="Nguyễn Văn A"
-                    className="flex-1 bg-transparent border-none outline-none text-sm placeholder:text-white/30 text-white"
+                    className="login-input-field"
                   />
                 </div>
                 {formik.touched.hoTen && formik.errors.hoTen && (
-                  <p className="text-red-400 text-sm mt-1">{formik.errors.hoTen}</p>
+                  <p className="err-msg">{formik.errors.hoTen}</p>
                 )}
               </div>
               <div className="flex flex-col gap-1.5 animate-fadeIn">
-                <label className="text-xs font-semibold tracking-wide uppercase opacity-70 px-1">Số điện thoại</label>
-                <div className="px-4 py-2.5 rounded-full border border-white/20 bg-white/5 flex items-center gap-3 focus-within:border-[#F0BB3B] focus-within:ring-1 focus-within:ring-[#F0BB3B] transition-all">
+                <label className="label-titles tracking-wide uppercase px-1">Số điện thoại</label>
+                <div className="input-field-with-icon">
                   <div className="opacity-50 flex items-center">
                     <i className="fa-solid fa-phone fa-sm"></i>
                   </div>
                   <input
                     type="text"
-                    {...formik.getFieldProps("soDT")}
-                    placeholder="0123123123"
-                    className="flex-1 bg-transparent border-none outline-none text-sm placeholder:text-white/30 text-white"
+                    {...formik.getFieldProps("soDt")}
+                    placeholder="0909123123"
+                    className="login-input-field"
                   />
                 </div>
-                {formik.touched.soDT && formik.errors.soDT && (
-                  <p className="text-red-400 text-sm mt-1">{formik.errors.soDT}</p>
+                {formik.touched.soDt && formik.errors.soDt && (
+                  <p className="err-msg">{formik.errors.soDt}</p>
+                )}
+              </div>
+              <div className="flex flex-col gap-1.5 animate-fadeIn">
+                <label className="label-titles tracking-wide uppercase px-1">Email</label>
+                <div className="input-field-with-icon">
+                  <div className="opacity-50 flex items-center">
+                    <i className="fa-regular fa-envelope fa-sm"></i>
+                  </div>
+                  <input
+                    type="email"
+                    {...formik.getFieldProps("email")}
+                    placeholder="nguyenvana@email.com"
+                    className="login-input-field"
+                  />
+                </div>
+                {formik.touched.email && formik.errors.email && (
+                  <p className="err-msg">{formik.errors.email}</p>
                 )}
               </div>
             </>
           )}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold tracking-wide uppercase opacity-70 px-1">Tài khoản</label>
-            <div className="px-4 py-2.5 rounded-full border border-white/20 bg-white/5 flex items-center gap-3 focus-within:border-[#F0BB3B] focus-within:ring-1 focus-within:ring-[#F0BB3B] transition-all">
+            <label className="label-titles tracking-wide uppercase px-1">Tài khoản</label>
+            <div className="input-field-with-icon">
               <div className="opacity-50 flex items-center">
                 <i className="fa-regular fa-envelope fa-sm"></i>
               </div>
               <input
                 type="text"
                 {...formik.getFieldProps("taiKhoan")}
-                placeholder="test@example.com"
-                className="flex-1 bg-transparent border-none outline-none text-sm placeholder:text-white/30 text-white"
+                placeholder="nguyenvana"
+                className="login-input-field"
               />
             </div>
             {formik.touched.taiKhoan && formik.errors.taiKhoan && (
-              <p className="text-red-400 text-sm mt-1">{formik.errors.taiKhoan}</p>
+              <p className="err-msg">{formik.errors.taiKhoan}</p>
             )}
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold tracking-wide uppercase opacity-70 px-1">Mật khẩu</label>
-            <div className="px-4 py-2.5 rounded-full border border-white/20 bg-white/5 flex items-center gap-3 focus-within:border-[#F0BB3B] focus-within:ring-1 focus-within:ring-[#F0BB3B] transition-all">
+            <label className="label-titles tracking-wide uppercase px-1">Mật khẩu</label>
+            <div className="input-field-with-icon">
               <div className="opacity-50 flex items-center">
                 <i className="fa-solid fa-key fa-sm"></i>
               </div>
@@ -205,7 +232,7 @@ const LoginPage = () => {
                 type={showPassword ? "text" : "password"}
                 {...formik.getFieldProps("matKhau")}
                 placeholder="••••••••••••••••"
-                className="flex-1 bg-transparent border-none outline-none text-sm placeholder:text-white/30 text-white"
+                className="login-input-field"
               />
               <button
                 type="button"
@@ -217,13 +244,10 @@ const LoginPage = () => {
               </button>
             </div>
             {formik.touched.matKhau && formik.errors.matKhau && (
-              <p className="text-red-400 text-sm mt-1">{formik.errors.matKhau}</p>
+              <p className="err-msg">{formik.errors.matKhau}</p>
             )}
           </div>
-          <button
-            type="submit"
-            className="w-full mt-2 py-3 bg-[#F0BB3B] text-black font-semibold rounded-full cursor-pointer hover:bg-[#dfb55c] active:scale-[0.99] transition-all shadow-lg shadow-[#F0BB3B]/10"
-          >
+          <button type="submit" className="w-full mt-2 accept-btn">
             {isLogin ? "Đăng nhập" : "Đăng ký tài khoản"}
           </button>
         </form>

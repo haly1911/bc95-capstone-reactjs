@@ -16,7 +16,7 @@ const ProfilePage = () => {
   return (
     <div className="min-h-screen wrapper pt-40 text-white">
       {isLoading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-[#1a0f23]/70 backdrop-blur-sm z-50">
+        <div className="modal-overlay">
           <LoadingSpinner />
         </div>
       )}
@@ -40,10 +40,7 @@ const ProfilePage = () => {
               <p className="text-gray-400 text-sm">@{profile?.taiKhoan}</p>
             </div>
             {profile?.maLoaiNguoiDung === "QuanTri" && (
-              <Link
-                to="/admin"
-                className="shrink-0 flex items-center justify-center gap-2 bg-[#f0bb3b] text-black font-bold px-5 py-2.5 rounded-xl transition-all duration-300 text-sm shadow-[0_4px_15px_rgba(240,187,59,0.2)] hover:scale-105"
-              >
+              <Link to="/admin" className="shrink-0 flex items-center justify-center gap-2 accept-btn">
                 <i className="fa-solid fa-gear"></i>
                 <span>Trang quản trị</span>
               </Link>
@@ -51,19 +48,15 @@ const ProfilePage = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-6 border-t border-[#442c54]/30">
             <div>
-              <p className="text-gray-400 text-xs uppercase tracking-widest mb-1 font-semibold opacity-70">Email</p>
+              <p className="profile-page-label mb-1">Email</p>
               <p className="text-white text-sm font-medium">{profile?.email}</p>
             </div>
             <div>
-              <p className="text-gray-400 text-xs uppercase tracking-widest mb-1 font-semibold opacity-70">
-                Số điện thoại
-              </p>
+              <p className="profile-page-label mb-1">Số điện thoại</p>
               <p className="text-white text-sm font-medium">{profile?.soDT}</p>
             </div>
             <div>
-              <p className="text-gray-400 text-xs uppercase tracking-widest mb-1 font-semibold opacity-70">
-                Mã Nhóm / Loại
-              </p>
+              <p className="profile-page-label mb-1">Mã Nhóm / Loại</p>
               <p className="text-white text-sm font-medium flex items-center gap-2">
                 <span>{profile?.maNhom}</span>
                 <span className="text-xs bg-purple-950/60 border border-[#442c54]/50 px-2 py-0.5 rounded text-gray-400">
@@ -74,7 +67,7 @@ const ProfilePage = () => {
           </div>
         </div>
         <div>
-          <h2 className="text-gray-400 text-xs uppercase tracking-widest mb-4 font-semibold opacity-70">
+          <h2 className="profile-page-label mb-4">
             Lịch sử đặt vé{" "}
             <span className="text-[#f0bb3b] text-sm font-bold ml-1">({profile?.thongTinDatVe?.length || 0} vé)</span>
           </h2>
@@ -130,7 +123,7 @@ const ProfilePage = () => {
                                 {ticket.danhSachGhe.map((ghe, index) => (
                                   <span
                                     key={index}
-                                    className="bg-black/30 border border-[#442c54]/50 text-gray-300 text-[11px] font-medium px-2.5 py-1 rounded-lg hover:border-[#f0bb3b]/30 transition-colors"
+                                    className="bg-black/30 border border-[#442c54]/50 text-gray-300 text-xs font-medium px-2.5 py-1 rounded-lg hover:border-[#f0bb3b]/30 transition-colors"
                                   >
                                     {ghe.tenRap} - Ghế {ghe.tenGhe}
                                   </span>

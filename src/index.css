@@ -19,9 +19,7 @@
 }
 
 @layer components {
-  /* ==========================================================================
-     SWIPER CAROUSEL CUSTOM RULES
-     ========================================================================== */
+  /* SWIPER CAROUSEL CUSTOM RULES */
   .hero-movie-swiper {
     --swiper-navigation-size: 20px;
     --swiper-navigation-color: #f0bb3b;
@@ -29,28 +27,22 @@
 
     @apply w-full pb-10 relative;
   }
-
-  /* Định vị lại hai mũi tên sát ra rìa bằng cách tăng độ ưu tiên qua class cha */
   .hero-movie-swiper .swiper-button-next {
     @apply right-4 lg:right-8;
   }
   .hero-movie-swiper .swiper-button-prev {
     @apply left-4 lg:left-8;
   }
-
-  /* Định vị các dấu chấm tròn xuống sát đáy */
   .hero-movie-swiper .swiper-pagination-bullets {
     @apply bottom-0;
   }
-
-  /* Ẩn hai mũi tên điều hướng trên thiết bị di động */
   @media (max-width: 768px) {
     .hero-movie-swiper .swiper-button-next,
     .hero-movie-swiper .swiper-button-prev {
       @apply hidden!;
     }
   }
-  /* ========================================================================== */
+
   .wrapper {
     @apply max-w-7xl mx-auto px-4 sm:px-8 lg:px-16;
   }
@@ -60,8 +52,55 @@
   .nav-titles {
     @apply text-sm hover:text-[#F0BB3B] transition;
   }
-
-  .seat-color {
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/70 backdrop-blur-xs;
+  }
+  .modal-bg {
+    @apply w-full max-w-lg bg-linear-120 from-[#16091F] to-[#2A0617] rounded-2xl border border-[#442c54] shadow-2xl;
+  }
+  .modal-title {
+    @apply flex items-center justify-between px-6 py-4 border-b border-[#442c54]/50 bg-black/30;
+  }
+  .label-titles {
+    @apply block text-xs text-gray-300 mb-1.5 font-semibold;
+  }
+  .input-field {
+    @apply w-full rounded-xl border border-[#523765] bg-[#1f1528] p-3 text-sm outline-none transition focus:border-[#F0BB3B];
+  }
+  .input-field-with-icon {
+    @apply px-4 py-2.5 rounded-xl border border-white/20 bg-white/5 flex items-center gap-3 focus-within:border-[#F0BB3B] focus-within:ring-1 focus-within:ring-[#F0BB3B] transition-all;
+  }
+  .login-input-field {
+    @apply flex-1 bg-transparent border-none outline-none text-sm placeholder:text-white/30 text-white;
+  }
+  .checkbox-label {
+    @apply flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none;
+  }
+  .checkbox-btn {
+    @apply rounded focus:ring-0 border-gray-700 w-4 h-4;
+  }
+  .radio-field {
+    @apply flex items-center justify-between p-4 rounded-xl border transition-all duration-200 cursor-pointer;
+  }
+  .radio-active {
+    @apply bg-[#f0bb3b]/10 border-[#f0bb3b];
+  }
+  .radio-inactive {
+    @apply bg-black/20 border-[#442c54]/40 hover:border-[#f0bb3b]/40;
+  }
+  .radio-btn {
+    @apply accent-[#f0bb3b] w-4 h-4 cursor-pointer;
+  }
+  .filter-btn {
+    @apply h-11 sm:w-45 w-full rounded-xl border border-[#523765] bg-[#1f1528] p-3 text-sm pl-3 pr-8 font-medium text-gray-300 outline-none transition focus:border-[#F0BB3B] cursor-pointer appearance-none;
+  }
+  .seat {
+    @apply w-5 h-5 sm:w-7 sm:h-7 flex items-center text-[8px] sm:text-xs justify-center rounded-md sm:rounded-lg transition-all;
+  }
+  .seat-gap {
+    @apply flex items-center gap-1 sm:gap-3;
+  }
+  .seat-note {
     @apply inline-block w-3.5 h-3.5 rounded-md mr-2 align-middle;
   }
   .ticket-info {
@@ -69,5 +108,44 @@
   }
   .booking-info-titles {
     @apply text-xs uppercase tracking-widest text-[#8a85a8];
+  }
+  .cancel-icon {
+    @apply text-gray-400 hover:text-white transition-colors cursor-pointer;
+  }
+  .cancel-btn {
+    @apply px-5 py-2.5 rounded-full text-sm font-semibold text-gray-400 hover:text-white border border-[#442c54]/50 hover:border-[#F0BB3B]/50 transition-colors cursor-pointer;
+  }
+  .accept-btn {
+    @apply px-5 py-2.5 text-black font-bold rounded-full transition-all shadow-lg shadow-[#F0BB3B]/10 bg-[#F0BB3B] hover:bg-[#dfac30] hover:scale-102 disabled:bg-yellow-800/50 disabled:text-gray-500 disabled:cursor-not-allowed cursor-pointer;
+  }
+  .footer-icon {
+    @apply grid h-9 w-9 place-items-center rounded-full border border-white/20 text-gray-400 transition hover:border-[#F0BB3B] hover:text-[#F0BB3B];
+  }
+  .status-badge {
+    @apply border text-center text-xs font-bold px-2 py-1 rounded-full;
+  }
+  .movie-info-card-field {
+    @apply flex justify-between border-b border-white/10 pb-3;
+  }
+  .movie-info-card-title {
+    @apply font-semibold text-[#F0BB3B];
+  }
+  .create-schedule-select-field {
+    @apply w-full rounded-xl border border-[#523765] bg-[#1f1528] p-3 outline-none focus:border-[#F0BB3B];
+  }
+  .err-msg {
+    @apply text-red-400 text-xs mt-1;
+  }
+  .pagination-arrow {
+    @apply grid h-10 w-10 place-items-center rounded-full border border-gray-800 bg-black/20 transition disabled:opacity-40 disabled:cursor-not-allowed enabled:hover:border-[#F0BB3B] enabled:hover:text-[#F0BB3B] enabled:cursor-pointer;
+  }
+  .action-icon {
+    @apply transition hover:scale-110 cursor-pointer;
+  }
+  .brand-logo {
+    @apply w-10 h-10 rounded-lg object-cover bg-white p-1 shadow-md;
+  }
+  .profile-page-label {
+    @apply text-gray-400 text-xs uppercase tracking-widest font-semibold opacity-70
   }
 }

@@ -28,20 +28,20 @@ const MovieInfoCard = ({ movie }) => {
       </div>
       <h2 className="mt-6 text-2xl font-bold text-[#F0BB3B]">{movie.tenPhim}</h2>
       <div className="mt-6 space-y-4">
-        <div className="flex justify-between border-b border-white/10 pb-3">
-          <span className="font-semibold text-[#F0BB3B]">Mã phim</span>
+        <div className="movie-info-card-field">
+          <span className="movie-info-card-title">Mã phim</span>
           <span className="text-gray-300">{movie.maPhim}</span>
         </div>
-        <div className="flex justify-between border-b border-white/10 pb-3">
-          <span className="font-semibold text-[#F0BB3B]">Ngày khởi chiếu</span>
+        <div className="movie-info-card-field">
+          <span className="movie-info-card-title">Ngày khởi chiếu</span>
           <span className="text-gray-300">{new Date(movie.ngayKhoiChieu).toLocaleDateString("vi-VN")}</span>
         </div>
-        <div className="flex justify-between border-b border-white/10 pb-3">
-          <span className="font-semibold text-[#F0BB3B]">Đánh giá</span>
+        <div className="movie-info-card-field">
+          <span className="movie-info-card-title">Đánh giá</span>
           <span className="text-gray-300">⭐ {movie.danhGia}/10</span>
         </div>
         <div className="flex justify-between">
-          <span className="font-semibold text-[#F0BB3B]">Trạng thái</span>
+          <span className="movie-info-card-title">Trạng thái</span>
           <span
             className={`font-semibold ${
               movie.dangChieu ? "text-green-400" : movie.sapChieu ? "text-orange-400" : "text-red-400"

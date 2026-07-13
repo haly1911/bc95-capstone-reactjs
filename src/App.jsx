@@ -75,16 +75,16 @@ function App() {
           </Routes>
         </BrowserRouter>
         <ToastContainer
-          position="top-right" // Hiện thông báo ở góc trên bên phải
-          autoClose={3000} // Tự động đóng sau 3 giây
-          hideProgressBar={false} // Hiện thanh chạy thời gian (thanh progress)
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
           newestOnTop={false}
-          closeOnClick={true} // Click vào thông báo để tắt nhanh
+          closeOnClick={true}
           rtl={false}
-          pauseOnFocusLoss={false} // Không dừng thanh chạy khi tab bị mờ
-          draggable={true} // Cho phép vuốt để tắt trên điện thoại
-          pauseOnHover={true} // Di chuột vào thì dừng thời gian đếm ngược
-          theme="dark" // Chuyển sang theme tối để khớp với background rạp phim
+          pauseOnFocusLoss={false}
+          draggable={true}
+          pauseOnHover={true}
+          theme="dark"
         />
       </QueryClientProvider>
     </Provider>

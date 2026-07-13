@@ -19,7 +19,7 @@ const SearchFilterBar = ({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={placeholder}
-          className="h-11 w-full rounded-xl border border-[#442c54]/50 bg-[#16091F] pl-11 pr-4 text-sm outline-none transition focus:border-[#F0BB3B] focus:ring-1 focus:ring-[#F0BB3B]/30 text-white"
+          className="h-11 pl-11 pr-4 input-field"
         />
       </div>
       {/* Dropdown Filter */}
@@ -27,10 +27,10 @@ const SearchFilterBar = ({
         <select
           value={filterValue}
           onChange={(e) => onFilterChange(e.target.value)}
-          className="h-11 w-full sm:w-45 rounded-xl border border-[#442c54]/50 bg-[#16091F] pl-3 pr-8 text-xs font-medium text-gray-300 outline-none transition focus:border-[#F0BB3B] cursor-pointer appearance-none"
+          className="filter-btn"
         >
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value} className="bg-[#16091F]">
+            <option key={opt.value} value={opt.value}>
               {opt.label}
             </option>
           ))}

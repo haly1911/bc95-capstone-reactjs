@@ -8,6 +8,8 @@ import Banner from "../components/Banner";
 import MovieTrailerPopup from "../components/MovieTrailerPopup";
 import PagePagination from "../components/PagePagination";
 import SearchFilterBar from "../components/SearchFilterBar";
+import { useSelector } from "react-redux";
+import { selectorIsLoggedIn } from "../store/slices/authSlice";
 
 const MovieListPage = () => {
   const [page, setPage] = useState(1);
@@ -15,6 +17,7 @@ const MovieListPage = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [trailerOpen, setTrailerOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const isLoggedIn = useSelector(selectorIsLoggedIn);
 
   const movieSectionRef = useRef(null);
   const debouncedQuery = useDebounce(query, 500);
@@ -26,7 +29,7 @@ const MovieListPage = () => {
   const totalPages = data?.totalPages || 1;
   const currentPage = data?.currentPage || 1;
 
-  // gọi API lấy toàn bộ phim cho banner (để )
+  // gọi API lấy toàn bộ phim cho banner (để filter status hot trên toàn bộ danh sách)
   const { data: bannerData } = useMovieList("GP01", 1, 100, "");
   const bannerMovies = bannerData?.items || [];
 
@@ -82,7 +85,9 @@ const MovieListPage = () => {
 
         {/* MOVIE GRID */}
         <div ref={movieSectionRef} className="mt-8">
-          <h2 className="text-2xl font-bold sm:text-3xl">Danh sách <span className="text-[#F0BB3B] drop-shadow-[0_2px_10px_rgba(240,187,59,0.2)]">phim</span></h2>
+          <h2 className="text-2xl font-bold sm:text-3xl">
+            Danh sách <span className="text-[#F0BB3B] drop-shadow-[0_2px_10px_rgba(240,187,59,0.2)]">phim</span>
+          </h2>
         </div>
 
         {isLoading && <LoadingSpinner />}
@@ -104,27 +109,26 @@ const MovieListPage = () => {
             ))}
           </div>
         )}
-
-        {/* PAGINATION */}
         {!isLoading && !isError && (
           <PagePagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         )}
-
-        {/* TAG STRIP */}
-        <div className="mt-16 rounded-2xl border border-[#F0BB3B]/20 bg-linear-120 from-[#2E0F46] to-[#610011] p-8 text-center sm:p-12">
-          <h3 className="text-2xl font-bold sm:text-3xl">
-            Thành viên <span className="text-[#F0BB3B] drop-shadow-[0_2px_10px_rgba(240,187,59,0.2)]">Lumière Premium</span>
-          </h3>
-          <p className="mx-auto mt-2 max-w-2xl text-sm text-gray-300 sm:text-base">
-            Tích điểm mọi giao dịch, ưu đãi sinh nhật, vé miễn phí mỗi tháng và đặc quyền ghế ngồi VIP.
-          </p>
-          <Link
-            to="/login"
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#F0BB3B] px-6 py-3 text-sm font-bold text-black transition hover:scale-105"
-          >
-            Đăng ký ngay
-          </Link>
-        </div>
+        {!isLoggedIn && (
+          <div className="mt-16 rounded-2xl border border-[#F0BB3B]/20 bg-linear-120 from-[#2E0F46] to-[#610011] p-8 text-center sm:p-12">
+            <h3 className="text-2xl font-bold sm:text-3xl">
+              Thành viên{" "}
+              <span className="text-[#F0BB3B] drop-shadow-[0_2px_10px_rgba(240,187,59,0.2)]">Lumière Premium</span>
+            </h3>
+            <p className="mx-auto mt-2 max-w-2xl text-sm text-gray-300 sm:text-base">
+              Tích điểm mọi giao dịch, ưu đãi sinh nhật, vé miễn phí mỗi tháng và đặc quyền ghế ngồi VIP.
+            </p>
+            <Link
+              to="/login"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#F0BB3B] px-6 py-3 text-sm font-bold text-black transition hover:scale-105"
+            >
+              Đăng ký ngay
+            </Link>
+          </div>
+        )}
       </section>
       {/* trailer popup */}
       <MovieTrailerPopup isOpen={trailerOpen} onClose={() => setTrailerOpen(false)} movie={selectedMovie} />

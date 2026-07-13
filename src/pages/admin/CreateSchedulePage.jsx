@@ -82,12 +82,12 @@ const CreateSchedulePage = () => {
         <form onSubmit={formik.handleSubmit} className="rounded-2xl border border-[#442c54]/50 bg-[#2a1b35]/70 p-6">
           <div className="space-y-6">
             <div>
-              <label className="mb-2 block text-sm text-gray-300">Bộ phim</label>
+              <label className="label-titles text-sm">Bộ phim</label>
               <select
                 name="maPhim"
                 value={formik.values.maPhim}
                 onChange={formik.handleChange}
-                className="w-full rounded-xl border border-[#523765] bg-[#1f1528] p-3 outline-none focus:border-[#F0BB3B] cursor-pointer"
+                className="create-schedule-select-field cursor-pointer"
               >
                 <option value="">Chọn phim</option>
                 {movies.map((movie) => (
@@ -97,19 +97,17 @@ const CreateSchedulePage = () => {
                 ))}
               </select>
 
-              {formik.touched.maPhim && formik.errors.maPhim && (
-                <p className="mt-1 text-sm text-red-400">{formik.errors.maPhim}</p>
-              )}
+              {formik.touched.maPhim && formik.errors.maPhim && <p className="err-msg">{formik.errors.maPhim}</p>}
             </div>
             <div>
-              <label className="mb-2 block text-sm text-gray-300">Hệ thống rạp</label>
+              <label className="label-titles text-sm">Hệ thống rạp</label>
               <select
                 value={selectedCinemaChain}
                 onChange={(e) => {
                   setSelectedCinemaChain(e.target.value);
                   formik.setFieldValue("maRap", "");
                 }}
-                className="w-full rounded-xl border border-[#523765] bg-[#1f1528] p-3 outline-none focus:border-[#F0BB3B] cursor-pointer"
+                className="create-schedule-select-field cursor-pointer"
               >
                 <option value="">Chọn hệ thống rạp</option>
                 {cinemaChains?.map((chain) => (
@@ -120,13 +118,13 @@ const CreateSchedulePage = () => {
               </select>
             </div>
             <div>
-              <label className="mb-2 block text-sm text-gray-300">Cụm rạp</label>
+              <label className="label-titles text-sm">Cụm rạp</label>
               <select
                 name="maRap"
                 value={formik.values.maRap}
                 onChange={formik.handleChange}
                 disabled={!selectedCinemaChain}
-                className={`w-full rounded-xl border border-[#523765] bg-[#1f1528] p-3 outline-none disabled:opacity-50 focus:border-[#F0BB3B] ${selectedCinemaChain ? "cursor-pointer" : "cursor-not-allowed"}`}
+                className={`create-schedule-select-field disabled:opacity-50  ${selectedCinemaChain ? "cursor-pointer" : "cursor-not-allowed"}`}
               >
                 <option value="">Chọn cụm rạp</option>
                 {cinemaComplexes?.map((complex) => (
@@ -135,26 +133,24 @@ const CreateSchedulePage = () => {
                   </option>
                 ))}
               </select>
-              {formik.touched.maRap && formik.errors.maRap && (
-                <p className="mt-1 text-sm text-red-400">{formik.errors.maRap}</p>
-              )}
+              {formik.touched.maRap && formik.errors.maRap && <p className="err-msg">{formik.errors.maRap}</p>}
             </div>
             <div>
-              <label className="mb-2 block text-sm text-gray-300">Ngày giờ chiếu</label>
+              <label className="label-titles text-sm">Ngày giờ chiếu</label>
               <input
                 type="datetime-local"
                 name="ngayChieuGioChieu"
                 value={formik.values.ngayChieuGioChieu}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full rounded-xl border border-[#523765] bg-[#1f1528] p-3 outline-none transition focus:border-[#F0BB3B] cursor-pointer"
+                className="input-field cursor-pointer"
               />
               {formik.touched.ngayChieuGioChieu && formik.errors.ngayChieuGioChieu && (
-                <p className="mt-1 text-sm text-red-400">{formik.errors.ngayChieuGioChieu}</p>
+                <p className="err-msg">{formik.errors.ngayChieuGioChieu}</p>
               )}
             </div>
             <div>
-              <label className="mb-2 block text-sm text-gray-300">Giá vé</label>
+              <label className="label-titles text-sm">Giá vé</label>
               <input
                 type="number"
                 name="giaVe"
@@ -164,11 +160,9 @@ const CreateSchedulePage = () => {
                 value={formik.values.giaVe}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full rounded-xl border border-[#523765] bg-[#1f1528] p-3 outline-none transition focus:border-[#F0BB3B] cursor-pointer"
+                className="input-field"
               />
-              {formik.touched.giaVe && formik.errors.giaVe && (
-                <p className="mt-1 text-sm text-red-400">{formik.errors.giaVe}</p>
-              )}
+              {formik.touched.giaVe && formik.errors.giaVe && <p className="err-msg">{formik.errors.giaVe}</p>}
             </div>
             {selectedMovie && (
               <div className="rounded-xl border border-[#F0BB3B] bg-[#1f1528]/50 p-4">
@@ -194,11 +188,7 @@ const CreateSchedulePage = () => {
                 </div>
               </div>
             )}
-            <button
-              type="submit"
-              disabled={createSchedule.isPending || !formik.isValid}
-              className="w-full cursor-pointer rounded-full bg-[#F0BB3B] px-6 py-3 font-bold text-gray-900 transition hover:bg-[#dfac30] disabled:cursor-not-allowed disabled:bg-yellow-800/50"
-            >
+            <button type="submit" disabled={createSchedule.isPending || !formik.isValid} className="w-full accept-btn">
               {createSchedule.isPending ? "Đang tạo..." : "Tạo lịch chiếu"}
             </button>
           </div>

@@ -1,17 +1,14 @@
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { logout } from "../store/slices/authSlice";
+import { logout, selectorUser } from "../store/slices/authSlice";
 
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const navLinkClassName = ({ isActive }) => {
-    return isActive
-      ? "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 bg-[#f0bb3b]/10 border border-[#f0bb3b] text-[#f0bb3b] shadow-[0_0_15px_rgba(240,187,59,0.15)]"
-      : "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 text-gray-400 hover:bg-[#342242]/60 hover:border-[#f0bb3b]/30 hover:text-white border border-transparent";
-  };
+  const user = useSelector(selectorUser);
+  const firstLetter = user?.hoTen ? user.hoTen.charAt(0).toUpperCase() : "A";
+  const displayName = user?.hoTen || "Admin User";
 
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -21,12 +18,18 @@ const AdminLayout = () => {
     dispatch(logout());
   };
 
+  const navLinkClassName = ({ isActive }) => {
+    return isActive
+      ? "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 bg-[#f0bb3b]/10 border border-[#f0bb3b] text-[#f0bb3b] shadow-[0_0_15px_rgba(240,187,59,0.15)]"
+      : "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 text-gray-400 hover:bg-[#342242]/60 hover:border-[#f0bb3b]/30 hover:text-white border border-transparent";
+  };
+
   return (
     <div className="min-h-screen flex bg-[#160d1d] relative overflow-x-hidden">
       {isSidebarOpen && (
         <div
           onClick={() => setIsSidebarOpen(false)}
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden transition-opacity duration-300"
+          className="modal-overlay lg:hidden transition-opacity duration-300"
         />
       )}
       <aside
@@ -93,11 +96,11 @@ const AdminLayout = () => {
           </div>
           <div className="flex items-center gap-3 sm:gap-5">
             <div className="text-right hidden sm:block">
-              <p className="text-white text-sm font-bold tracking-wide">Admin User</p>
+              <p className="text-white text-sm font-bold tracking-wide">{displayName}</p>
               <p className="text-[#f0bb3b] text-xs font-medium opacity-90">Quản trị viên</p>
             </div>
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#f0bb3b] shadow-[0_0_12px_rgba(240,187,59,0.3)] flex items-center justify-center text-gray-950 font-black text-xs sm:text-sm shrink-0 border-2 border-[#160d1d]">
-              A
+              {firstLetter}
             </div>
             <button onClick={handleLogout} className="header-btn text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2">
               Đăng xuất

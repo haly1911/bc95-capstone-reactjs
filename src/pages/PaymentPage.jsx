@@ -95,8 +95,8 @@ const PaymentPage = () => {
 
               <div className="space-y-4">
                 <label
-                  className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-200 cursor-pointer
-                  ${paymentMethod === "momo" ? "bg-[#f0bb3b]/10 border-[#f0bb3b]" : "bg-black/20 border-[#442c54]/40 hover:border-[#f0bb3b]/40"}`}
+                  className={`radio-field
+                  ${paymentMethod === "momo" ? "radio-active" : "radio-inactive"}`}
                 >
                   <div className="flex items-center gap-4">
                     <input
@@ -105,12 +105,12 @@ const PaymentPage = () => {
                       value="momo"
                       checked={paymentMethod === "momo"}
                       onChange={() => setPaymentMethod("momo")}
-                      className="accent-[#f0bb3b] w-4 h-4 cursor-pointer"
+                      className="radio-btn"
                     />
                     <img
-                      src="https://momo-chuyen-nhan-tien.vn.aptoide.com/_next/image?url=https%3A%2F%2Fcdn.aptoide.com%2Fimgs%2Fb%2Fc%2F3%2Fbc38432546ed5a7f7089d9577b348883_icon.png&w=256&q=75"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1k5WbRLtFhBPCsYwJ19P4kMR_3SiNN1zwQboRpteTOA&s=10"
                       alt="MoMo"
-                      className="w-10 h-10 rounded-lg object-cover bg-white p-1"
+                      className="brand-logo"
                     />
                     <div>
                       <p className="font-semibold text-sm">Ví Điện Tử MoMo</p>
@@ -119,8 +119,8 @@ const PaymentPage = () => {
                   </div>
                 </label>
                 <label
-                  className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-200 cursor-pointer
-                  ${paymentMethod === "vnpay" ? "bg-[#f0bb3b]/10 border-[#f0bb3b]" : "bg-black/20 border-[#442c54]/40 hover:border-[#f0bb3b]/40"}`}
+                  className={`radio-field
+                  ${paymentMethod === "vnpay" ? "radio-active" : "radio-inactive"}`}
                 >
                   <div className="flex items-center gap-4">
                     <input
@@ -129,12 +129,12 @@ const PaymentPage = () => {
                       value="vnpay"
                       checked={paymentMethod === "vnpay"}
                       onChange={() => setPaymentMethod("vnpay")}
-                      className="accent-[#f0bb3b] w-4 h-4 cursor-pointer"
+                      className="radio-btn"
                     />
                     <img
                       src="https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
                       alt="VNPAY"
-                      className="w-10 h-10 rounded-lg object-contain bg-white p-1"
+                      className="brand-logo"
                     />
                     <div>
                       <p className="font-semibold text-sm">Cổng thanh toán VNPAY</p>
@@ -143,8 +143,8 @@ const PaymentPage = () => {
                   </div>
                 </label>
                 <label
-                  className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-200 cursor-pointer
-                  ${paymentMethod === "stripe" ? "bg-[#f0bb3b]/10 border-[#f0bb3b]" : "bg-black/20 border-[#442c54]/40 hover:border-[#f0bb3b]/40"}`}
+                  className={`radio-field
+                  ${paymentMethod === "stripe" ? "radio-active" : "radio-inactive"}`}
                 >
                   <div className="flex items-center gap-4">
                     <input
@@ -152,10 +152,10 @@ const PaymentPage = () => {
                       name="payment"
                       value="stripe"
                       checked={paymentMethod === "stripe"}
-                      onChange={() => setPaymentMethod("stripe")} // 👉 SỬA LỖI Ở ĐÂY
-                      className="accent-[#f0bb3b] w-4 h-4 cursor-pointer"
+                      onChange={() => setPaymentMethod("stripe")}
+                      className="radio-btn"
                     />
-                    <div className="w-10 h-10 rounded-lg bg-white p-1 flex items-center justify-center border text-[#1a1f71]">
+                    <div className="brand-logo flex items-center justify-center border text-[#1a1f71]">
                       <img src="https://cdn-icons-png.flaticon.com/512/8983/8983163.png" alt="card" />
                     </div>
                     <div>
@@ -180,10 +180,10 @@ const PaymentPage = () => {
                       value={cardFormik.values.cardNumber}
                       onChange={cardFormik.handleChange}
                       onBlur={cardFormik.handleBlur}
-                      className="w-full px-4 py-3 text-sm rounded-xl border border-[#442c54]/60 bg-black/30 outline-none focus:border-[#f0bb3b] transition-all"
+                      className="input-field"
                     />
                     {cardFormik.touched.cardNumber && cardFormik.errors.cardNumber && (
-                      <span className="text-red-400 text-xs px-1">{cardFormik.errors.cardNumber}</span>
+                      <span className="err-msg px-1">{cardFormik.errors.cardNumber}</span>
                     )}
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -196,10 +196,10 @@ const PaymentPage = () => {
                         value={cardFormik.values.cardExpiry}
                         onChange={cardFormik.handleChange}
                         onBlur={cardFormik.handleBlur}
-                        className="w-full px-4 py-3 text-sm rounded-xl border border-[#442c54]/60 bg-black/30 outline-none focus:border-[#f0bb3b] transition-all"
+                        className="input-field"
                       />
                       {cardFormik.touched.cardExpiry && cardFormik.errors.cardExpiry && (
-                        <span className="text-red-400 text-xs px-1">{cardFormik.errors.cardExpiry}</span>
+                        <span className="err-msg px-1">{cardFormik.errors.cardExpiry}</span>
                       )}
                     </div>
 
@@ -212,10 +212,10 @@ const PaymentPage = () => {
                         value={cardFormik.values.cardCvc}
                         onChange={cardFormik.handleChange}
                         onBlur={cardFormik.handleBlur}
-                        className="w-full px-4 py-3 text-sm rounded-xl border border-[#442c54]/60 bg-black/30 outline-none focus:border-[#f0bb3b] transition-all"
+                        className="input-field"
                       />
                       {cardFormik.touched.cardCvc && cardFormik.errors.cardCvc && (
-                        <span className="text-red-400 text-xs px-1">{cardFormik.errors.cardCvc}</span>
+                        <span className="err-msg px-1">{cardFormik.errors.cardCvc}</span>
                       )}
                     </div>
                   </div>
@@ -243,11 +243,11 @@ const PaymentPage = () => {
               onClick={handleTriggerPayment}
               disabled={isPending}
               className={`w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2
-      ${
-        isPending
-          ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-          : "bg-[#f0bb3b] text-black hover:bg-[#e2af31] hover:scale-102 cursor-pointer shadow-lg shadow-[#f0bb3b]/10"
-      }`}
+              ${
+                isPending
+                  ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                  : "bg-[#f0bb3b] text-black hover:bg-[#e2af31] hover:scale-102 cursor-pointer shadow-lg shadow-[#f0bb3b]/10"
+              }`}
             >
               {isPending ? (
                 <>
@@ -266,7 +266,7 @@ const PaymentPage = () => {
               type="button"
               onClick={() => handleNavigateBooking(movieInfo, showtimeInfo, showtimeInfo?.tenCumRap)}
               disabled={isPending}
-              className="w-full mt-3 py-2 text-xs text-center text-gray-400 hover:text-white transition-colors cursor-pointer block"
+              className="w-full mt-3 py-2 text-xs text-center cancel-icon block"
             >
               Quay lại sửa ghế
             </button>
