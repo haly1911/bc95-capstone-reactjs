@@ -14,7 +14,7 @@ const AdminLayout = () => {
   const queryClient = useQueryClient();
 
   const handleLogout = () => {
-    queryClient.refetchQueries({ queryKey: ["profile"] });
+    queryClient.removeQueries({ queryKey: ["profile"] });
     dispatch(logout());
   };
 

@@ -103,9 +103,9 @@ const BookingPage = () => {
             {rowLabel}
           </div>
           <div className="seat-gap">
-            <div className="flex gap-1">{renderSeatCluster(rowSeats.slice(0, 3))}</div>
-            <div className="flex gap-1">{renderSeatCluster(rowSeats.slice(3, 9))}</div>
-            <div className="flex gap-1">{renderSeatCluster(rowSeats.slice(9, 12))}</div>
+            <div className="flex gap-1 sm:gap-2">{renderSeatCluster(rowSeats.slice(0, 3))}</div>
+            <div className="flex gap-1 sm:gap-2">{renderSeatCluster(rowSeats.slice(3, 9))}</div>
+            <div className="flex gap-1 sm:gap-2">{renderSeatCluster(rowSeats.slice(9, 12))}</div>
           </div>
         </div>
       );

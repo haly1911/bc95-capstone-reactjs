@@ -98,7 +98,7 @@
     @apply w-5 h-5 sm:w-7 sm:h-7 flex items-center text-[8px] sm:text-xs justify-center rounded-md sm:rounded-lg transition-all;
   }
   .seat-gap {
-    @apply flex items-center gap-1 sm:gap-3;
+    @apply flex items-center gap-1 sm:gap-6;
   }
   .seat-note {
     @apply inline-block w-3.5 h-3.5 rounded-md mr-2 align-middle;

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectorIsLoggedIn } from "../store/slices/authSlice";
+import { selectorIsLoggedIn, selectorUser } from "../store/slices/authSlice";
 import { useProfile } from "../hooks/useUser";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { Link } from "react-router-dom";
 import EditProfileModal from "../components/EditProfileModal";
 
 const ProfilePage = () => {
-  const isLoggedIn = useSelector(selectorIsLoggedIn);
-  const { data: profile, isLoading } = useProfile(isLoggedIn);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const user = useSelector(selectorUser);
+  const isLoggedIn = useSelector(selectorIsLoggedIn);
+  const { data: profile, isLoading } = useProfile(isLoggedIn, user?.taiKhoan);
 
   const avatar = profile?.hoTen[0].toUpperCase();
 

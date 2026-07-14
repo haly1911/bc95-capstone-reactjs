@@ -1,14 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { userApi } from "../api/userApi";
 
-export const useProfile = (isLoggedIn) => {
+export const useProfile = (isLoggedIn, account) => {
   return useQuery({
-    queryKey: ["profile"],
+    queryKey: ["profile", account],
     queryFn: async () => {
       const response = await userApi.getProfile();
       return response.data.content;
     },
-    enabled: isLoggedIn,
+    enabled: isLoggedIn && !!account,
     refetchOnMount: "always",
   });
 };
